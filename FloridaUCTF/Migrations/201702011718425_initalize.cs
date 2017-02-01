@@ -3,7 +3,7 @@ namespace FloridaUCTF.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class initialize : DbMigration
+    public partial class initalize : DbMigration
     {
         public override void Up()
         {
@@ -87,6 +87,7 @@ namespace FloridaUCTF.Migrations
                         DriveLicenseState = c.String(maxLength: 2),
                         LastAKA = c.String(maxLength: 255),
                         FirstAKA = c.String(maxLength: 255),
+                        DefaultAddressId = c.Int(),
                         CreateDate = c.DateTime(nullable: false),
                         CreatorId = c.String(),
                         Creator = c.String(),
@@ -101,7 +102,7 @@ namespace FloridaUCTF.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        Street = c.String(nullable: false, maxLength: 100),
+                        Address = c.String(nullable: false, maxLength: 100),
                         City = c.String(nullable: false, maxLength: 75),
                         State = c.String(nullable: false, maxLength: 2),
                         Zip = c.String(nullable: false, maxLength: 10),

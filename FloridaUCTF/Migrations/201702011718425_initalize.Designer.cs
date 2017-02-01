@@ -7,13 +7,13 @@ namespace FloridaUCTF.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class initialize : IMigrationMetadata
+    public sealed partial class initalize : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(initialize));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(initalize));
         
         string IMigrationMetadata.Id
         {
-            get { return "201701301707060_initialize"; }
+            get { return "201702011718425_initalize"; }
         }
         
         string IMigrationMetadata.Source

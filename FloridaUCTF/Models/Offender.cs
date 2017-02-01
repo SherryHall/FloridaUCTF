@@ -41,13 +41,24 @@ namespace FloridaUCTF.Models
 		[Display(Name = "First")]
 		public string FirstAKA { get; set; }
 
-		//public int DefaultAddressId { get; set; }
-		//[ForeignKey("DefaultAddressId")]
-		//public virtual OffenderAddress DefaultAddress { get; set; }
+		[NotMapped]
+		[Display(Name = "Offender Name")]
+		public string Full_Name
+		{
+			get { return this.LastName + ", " + this.FirstName + " " + this.MiddleName[0]; }
+		}
+		[NotMapped]
+		[Display(Name = "AKAs")]
+		public string AllAKAs
+		{
+			get { return this.LastAKA + " " + this.FirstAKA; }
+		}
+
+		public int?  DefaultAddressId { get; set; }
 
 		public ICollection<OffenderAddress> OffenderAddresses { get; set; }
 
-		public virtual ICollection<Case> Cases { get; set; }
+		public ICollection<Case> Cases { get; set; }
 
 
 

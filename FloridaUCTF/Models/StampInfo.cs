@@ -8,12 +8,12 @@ namespace FloridaUCTF.Models
 {
 	public class StampInfo
 	{
-		public DateTime CreateDate { get; set; }
+		public DateTime CreateDate { get; set; } = DateTime.Now;
 		public string CreatorId { get; set; }
 		
 		public String Creator { get; set; }
 
-		public DateTime ChangeDate { get; set; }
+		public DateTime ChangeDate { get; set; } = DateTime.Now;
 
 		public string LastChangerId { get; set; }
 

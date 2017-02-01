@@ -41,5 +41,11 @@ namespace FloridaUCTF.Models
 
 	}
 
+	public class AddOffenderViewModel
+	{
+		public Offender Offender { get; set; }
+
+		public OffenderAddress OffenderAddress { get; set; }
+	}
 
 }

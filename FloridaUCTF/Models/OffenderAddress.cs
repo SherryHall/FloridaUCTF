@@ -13,7 +13,7 @@ namespace FloridaUCTF.Models
 
 		[Required]
 		[StringLength(100)]
-		public string Street { get; set; }
+		public string Address { get; set; }
 
 		[Required]
 		[StringLength(75)]
@@ -30,5 +30,6 @@ namespace FloridaUCTF.Models
 		public int? OffenderId { get; set; }
 		[ForeignKey("OffenderId")]
 		public Offender Offender { get; set; }
+
 	}
 }

@@ -11,9 +11,9 @@
 	@Html.ValidationSummary("", new { @class = "text-danger" })
 	<div class="row">
 		<div class="col-md-6">
-			<p class="alert-info"> Login Information </p>
+			<p class="group-heading"> Login Information </p>
 			<div class="form-group">
-				<div> (Your email address will be your user name)</div>
+				<div class="text-center"> (Your email address will be your user name)</div>
 				@Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
 				<div class="col-md-10">
 					@Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
@@ -33,7 +33,7 @@
 			</div>
 		</div>
 		<div class="col-md-6">
-			<p class="alert-info"> Personal Information </p>
+			<p class="group-heading"> Personal Information </p>
 			<div class="form-group">
 				@Html.LabelFor(m => m.UserInfo.FirstName, new { @class = "col-md-3 control-label" })
 				<div class="col-md-9">
@@ -60,7 +60,7 @@
 			</div>
 		</div>
 	</div>
-	<p class="alert-info"> Place of Business </p>
+	<p class="group-heading"> Place of Business </p>
 	<div class="row">
 		<div class="col-md-6">
 			<div class="form-group">
@@ -75,7 +75,6 @@
 					@Html.TextBoxFor(m => m.UserInfo.City, new { @class = "form-control" })
 				</div>
 			</div>
-			<div class="row">
 			<div class="form-group">
 				@Html.LabelFor(m => m.UserInfo.State, new { @class = "col-md-2 control-label" })
 				<div class="col-md-10">
@@ -83,10 +82,9 @@
 				</div>
 			</div>
 			<div class="form-group">
-				@Html.LabelFor(m => m.UserInfo.Zip, new { @class = "col-md-3 control-label" })
-				<div class="col-md-9">
+				@Html.LabelFor(m => m.UserInfo.Zip, new { @class = "col-md-2 control-label" })
+				<div class="col-md-10">
 					@Html.TextBoxFor(m => m.UserInfo.Zip, new { @class = "form-control", size = 2 })
-			</div>
 				</div>
 			</div>
 		</div>

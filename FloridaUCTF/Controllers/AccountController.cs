@@ -151,7 +151,20 @@ namespace FloridaUCTF.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+				var user = new ApplicationUser
+				{ UserName = model.Email,
+					Email = model.Email,
+					LastName = model.UserInfo.LastName,
+					FirstName = model.UserInfo.FirstName,
+					Title = model.UserInfo.Title,
+					Jurisdiction = model.UserInfo.Jurisdiction,
+					WorkPhone = model.UserInfo.WorkPhone,
+					WorkExtension = model.UserInfo.WorkExtension,
+					Address = model.UserInfo.Address,
+					City = model.UserInfo.City,
+					State = model.UserInfo.State,
+					Zip = model.UserInfo.Zip
+				};
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {

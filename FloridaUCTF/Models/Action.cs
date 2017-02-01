@@ -10,7 +10,7 @@ namespace FloridaUCTF.Models
 		public int Id { get; set; }
 		public string Description { get; set; }
 
-		public ICollection<Citation> Citations { get; set; }
+		public virtual ICollection<Citation> Citations { get; set; }
 
 	}
 }

@@ -37,15 +37,15 @@ namespace FloridaUCTF.Models
 
 		public int CaseId { get; set; }
 		[ForeignKey("CaseId")]
-		public virtual Case Case { get; set; }
+		public Case Case { get; set; }
 
 		public int? ActionId { get; set; }
 		[ForeignKey("ActionId")]
-		public virtual Action Action { get; set; }
+		public Action Action { get; set; }
 
 		public int? RulingId { get; set; }
 		[ForeignKey("RulingId")]
-		public virtual Ruling Ruling { get; set; }
+		public Ruling Ruling { get; set; }
 
 	}
 }
