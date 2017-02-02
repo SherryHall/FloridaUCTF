@@ -307,8 +307,8 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\AddOffender.cshtml" />
     <Content Include="Views\Home\AddAddress.cshtml" />
-    <Content Include="Views\Home\_CitationText.cshtml" />
     <Content Include="Views\Home\AddCase.cshtml" />
+    <Content Include="Views\Home\_OffenderSummary.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

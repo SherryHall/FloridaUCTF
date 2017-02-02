@@ -45,7 +45,7 @@ namespace FloridaUCTF.Models
 		[Display(Name = "Offender Name")]
 		public string Full_Name
 		{
-			get { return this.LastName + ", " + this.FirstName + " " + this.MiddleName[0]; }
+			get { return this.LastName + ", " + this.FirstName + " " + this.MiddleName; }
 		}
 		[NotMapped]
 		[Display(Name = "AKAs")]

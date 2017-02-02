@@ -19,7 +19,8 @@ namespace FloridaUCTF.Models
 		public string CaseNumber { get; set; }
 
 		[Display(Name = "Date")]
-		public DateTime CaseDate { get; set; }
+		[DisplayFormat(DataFormatString = "{0:MM-dd-yyyy}")]
+		public DateTime CaseDate { get; set; } = DateTime.Now;
 
 		[StringLength(75)]
 		[Display(Name = "City")]
@@ -31,13 +32,13 @@ namespace FloridaUCTF.Models
 		public string CaseCounty { get; set; }
 
 		[StringLength(100)]
-		[Display(Name = "Bus. Name")]
+		[Display(Name = "Business Name")]
 		public string BusinessName { get; set; }
 
 		public int OffenderAddressId { get; set; }
 
 		[ForeignKey("OffenderAddressId")]
-		[Display(Name = "Home Addr")]
+		[Display(Name = "Home Address")]
 		public OffenderAddress OffenderAddress { get; set; }
 
 		[ForeignKey("OffenderId")]

@@ -1,0 +1,22 @@
+﻿@model FloridaUCTF.Models.Case
+
+<div class="panel">
+
+	<div class="row">
+		
+		<table>
+			<tr>
+				<th> Offender Name: </th>
+				<td> @Model.Offender.Full_Name </td>
+			</tr>
+			<tr>
+				<th> AKAs: </th>
+				<td> @Model.Offender.AllAKAs </td>
+			</tr>
+			<tr>
+				<th> Driver's License: </th>
+				<td> @Model.Offender.DriveLicenseState @Model.Offender.DriveLicense </td>
+			</tr>
+		</table>
+	</div>
+</div>

@@ -53,7 +53,7 @@ namespace FloridaUCTF.Controllers
 			// update the Offender record to the DefaultAddress to the address record just saved above.
 			newOffender.DefaultAddressId = newAddress.Id;
 			db.SaveChanges();
-			
+
 			return RedirectToAction("AddCase", new { offenderId = newOffender.Id });
 		}
 		[HttpGet]
@@ -62,16 +62,18 @@ namespace FloridaUCTF.Controllers
 			var currentOffender = db.Offenders.Find(offenderId);
 
 			var newCase = new Case();
+			newCase.Offender = db.Offenders.Find(offenderId);
 			newCase.OffenderAddress = db.OffenderAddresses.Find(currentOffender.Id);
 			newCase.OfficialContact = db.Users.Find(HttpContext.User.Identity.GetUserId());
 			return View(newCase);
 		}
-		//[HttpPost]
-		//[ValidateAntiForgeryToken]
-		//public ActionResult AddCase(Case case)
-		//{
 
-		//	return View();
-		//}
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public ActionResult AddCase(Case newCase)
+		{
+
+			return View();
+		}
 	}
 }
