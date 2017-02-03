@@ -1,0 +1,105 @@
+﻿@model FloridaUCTF.Models.Case
+
+@{
+    ViewBag.Title = "Edit Case " + Model.CaseNumber;
+}
+
+<h2>Edit Case for @Model.Offender.FirstName @Model.Offender.LastName  </h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+
+		<div class="col-md-12">
+			<div class="panel group-heading"> CASE INFORMATION </div>
+			<div class="form-group">
+				@Html.LabelFor(model => model.CaseNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+				<div class="col-md-10">
+					@Html.EditorFor(model => model.CaseNumber, new { htmlAttributes = new { @class = "form-control" } })
+					@Html.ValidationMessageFor(model => model.CaseNumber, "", new { @class = "text-danger" })
+				</div>
+			</div>
+			<div class="form-group">
+				@Html.LabelFor(model => model.CaseDate, htmlAttributes: new { @class = "control-label col-md-2" })
+				<div class="col-md-10">
+					@Html.EditorFor(model => model.CaseDate, "{0:MM/dd/yyyy}", new { htmlAttributes = new { @class = "form-control" } })
+					@Html.ValidationMessageFor(model => model.CaseDate, "", new { @class = "text-danger" })
+				</div>
+			</div>
+
+			<div class="form-group">
+				@Html.LabelFor(model => model.CaseCity, htmlAttributes: new { @class = "control-label col-md-2" })
+				<div class="col-md-10">
+					@Html.EditorFor(model => model.CaseCity, new { htmlAttributes = new { @class = "form-control" } })
+					@Html.ValidationMessageFor(model => model.CaseCity, "", new { @class = "text-danger" })
+				</div>
+			</div>
+
+			<div class="form-group">
+				@Html.LabelFor(model => model.CaseCounty, htmlAttributes: new { @class = "control-label col-md-2" })
+				<div class="col-md-10">
+					@Html.EditorFor(model => model.CaseCounty, new { htmlAttributes = new { @class = "form-control" } })
+					@Html.ValidationMessageFor(model => model.CaseCounty, "", new { @class = "text-danger" })
+				</div>
+			</div>
+		</div>
+		<div class="panel group-heading"> OFFENDER - WHEN CITED </div>
+		<div class="form-group">
+			@Html.LabelFor(model => model.BusinessName, htmlAttributes: new { @class = "control-label col-md-2" })
+			<div class="col-md-10">
+				@Html.EditorFor(model => model.BusinessName, new { htmlAttributes = new { @class = "form-control" } })
+				@Html.ValidationMessageFor(model => model.BusinessName, "", new { @class = "text-danger" })
+			</div>
+		</div>
+
+		<div class="form-group">
+			@Html.LabelFor(model => model.OffenderAddress.Address, htmlAttributes: new { @class = "control-label col-md-2" })
+			<div class="col-md-10">
+				@Html.EditorFor(model => model.OffenderAddress.Address, new { htmlAttributes = new { @class = "form-control" } })
+				@Html.ValidationMessageFor(model => model.OffenderAddress.Address, "", new { @class = "text-danger" })
+			</div>
+		</div>
+		<div class="form-group">
+			@Html.LabelFor(model => model.OffenderAddress.City, htmlAttributes: new { @class = "control-label col-md-2" })
+			<div class="col-md-10">
+				@Html.EditorFor(model => model.OffenderAddress.City, new { htmlAttributes = new { @class = "form-control" } })
+				@Html.ValidationMessageFor(model => model.OffenderAddress.City, "", new { @class = "text-danger" })
+			</div>
+		</div>
+		@*<div class="row">*@
+		<div class="form-group">
+			@Html.LabelFor(model => model.OffenderAddress.State, htmlAttributes: new { @class = "control-label col-md-2" })
+			<div class="col-md-10">
+				@Html.EditorFor(model => model.OffenderAddress.State, new { htmlAttributes = new { @class = "form-control" } })
+				@Html.ValidationMessageFor(model => model.OffenderAddress.State, "", new { @class = "text-danger" })
+			</div>
+		</div>
+		<div class="form-group">
+			@Html.LabelFor(model => model.OffenderAddress.Zip, htmlAttributes: new { @class = "control-label col-md-2" })
+			<div class="col-md-10">
+				@Html.EditorFor(model => model.OffenderAddress.Zip, new { htmlAttributes = new { @class = "form-control" } })
+				@Html.ValidationMessageFor(model => model.OffenderAddress.Zip, "", new { @class = "text-danger" })
+			</div>
+		</div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

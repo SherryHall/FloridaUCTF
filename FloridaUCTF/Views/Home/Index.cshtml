@@ -11,7 +11,7 @@
 	@Html.AntiForgeryToken()
 
 	<div class="form-horizontal">
-		<h1 class="text-center">Search Unlicensed Contractor Cases </h1>
+		<h2 class="text-center">Search Unlicensed Contractor Cases </h2>
 		<hr />
 		@Html.ValidationSummary(true, "", new { @class = "text-danger" })
 		<div class="row">
@@ -41,32 +41,32 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-md-4">
+			<div class="col-md-5">
 				<div class="panel group-heading"> MISCELLANEOUS </div>
 				<div class="form-group">
-					@Html.LabelFor(model => model.CaseNumber, htmlAttributes: new { @class = "control-label col-md-3" })
-					<div class="col-md-9">
+					@Html.LabelFor(model => model.CaseNumber, htmlAttributes: new { @class = "control-label col-md-4" })
+					<div class="col-md-8">
 						@Html.EditorFor(model => model.CaseNumber, new { htmlAttributes = new { @class = "form-control" } })
 						@Html.ValidationMessageFor(model => model.CaseNumber, "", new { @class = "text-danger" })
 					</div>
 				</div>
 
 				<div class="form-group">
-					@Html.LabelFor(model => model.BusinessName, htmlAttributes: new { @class = "control-label col-md-3" })
-					<div class="col-md-9">
+					@Html.LabelFor(model => model.BusinessName, htmlAttributes: new { @class = "control-label col-md-4" })
+					<div class="col-md-8">
 						@Html.EditorFor(model => model.BusinessName, new { htmlAttributes = new { @class = "form-control" } })
 						@Html.ValidationMessageFor(model => model.BusinessName, "", new { @class = "text-danger" })
 					</div>
 				</div>
 				<div class="form-group">
-					@Html.LabelFor(model => model.DriveLicense, htmlAttributes: new { @class = "control-label col-md-3" })
-					<div class="col-md-9">
+					@Html.LabelFor(model => model.DriveLicense, htmlAttributes: new { @class = "control-label col-md-4" })
+					<div class="col-md-8">
 						@Html.EditorFor(model => model.DriveLicense, new { htmlAttributes = new { @class = "form-control" } })
 						@Html.ValidationMessageFor(model => model.DriveLicense, "", new { @class = "text-danger" })
 					</div>
 				</div>
 			</div>
-			<div class="col-md-4">
+			<div class="col-md-3">
 				<div class="panel group-heading"> LOCATION OF OFFENSE </div>
 				<div class="form-group">
 					@Html.LabelFor(model => model.CaseCity, htmlAttributes: new { @class = "control-label col-md-3" })

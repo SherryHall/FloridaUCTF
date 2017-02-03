@@ -2,7 +2,9 @@
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -56,6 +58,7 @@ namespace FloridaUCTF.Controllers
 
 			return RedirectToAction("AddCase", new { offenderId = newOffender.Id });
 		}
+
 		[HttpGet]
 		public ActionResult AddCase(int offenderId)
 		{
@@ -63,7 +66,7 @@ namespace FloridaUCTF.Controllers
 
 			var newCase = new Case();
 			newCase.Offender = db.Offenders.Find(offenderId);
-			newCase.OffenderAddress = db.OffenderAddresses.Find(currentOffender.Id);
+			newCase.OffenderAddress = db.OffenderAddresses.Find(currentOffender.DefaultAddressId );
 			newCase.OfficialContact = db.Users.Find(HttpContext.User.Identity.GetUserId());
 			return View(newCase);
 		}
@@ -72,8 +75,140 @@ namespace FloridaUCTF.Controllers
 		[ValidateAntiForgeryToken]
 		public ActionResult AddCase(Case newCase)
 		{
+			db.Cases.Add(newCase);
+			db.SaveChanges();
+			return RedirectToAction("CaseCitationDetail", new { caseId = newCase.Id });
+		}
 
-			return View();
+		[HttpGet]
+		public ActionResult EditCase(int caseId)
+		{
+			var currCase = db.Cases.Find(caseId);
+			return View(currCase);
+		}
+
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public ActionResult EditCase(Case currCase)
+		{
+			db.SaveChanges();
+			return RedirectToAction("CaseCitationDetail", new { caseId = currCase.Id });
+		}
+
+
+		// GET: Cases/Delete/5
+		[HttpGet]
+		public ActionResult DeleteCase(int caseId)
+		{
+
+			Case delCase = db.Cases.Find(caseId);
+			if (delCase == null)
+			{
+				return HttpNotFound();
+			}
+			return View(delCase);
+		}
+
+		// POST: Cases/Delete/5
+		[HttpPost, ActionName("DeleteCase")]
+		[ValidateAntiForgeryToken]
+		public ActionResult DeleteConfirmed(int caseId)
+		{
+			Case delCase = db.Cases.Find(caseId);
+			db.Cases.Remove(delCase);
+			db.SaveChanges();
+			return RedirectToAction("AllOffenderCases", new { offenderId = delCase.OffenderId });
+		}
+
+
+
+		[HttpGet]
+		public ActionResult _AddCitation(int caseId)
+		{
+			var newCitation = new Citation();
+			newCitation.CaseId = caseId;
+			return PartialView(newCitation);
+		}
+
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public ActionResult _AddCitation(Citation newCitation)
+		{
+			db.Citations.Add(newCitation);
+			db.SaveChanges();
+			return RedirectToAction("CaseCitationDetail", new { caseId = newCitation.CaseId });
+		}
+
+
+		// GET: Citations/Edit/5
+		[HttpGet]
+		public ActionResult _EditCitation(int citationId)
+		{
+
+			var currCitation = db.Citations.Find(citationId);
+			if (currCitation == null)
+			{
+				return HttpNotFound();
+			}
+
+			return PartialView(currCitation);
+		}
+
+
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public ActionResult _EditCitation([Bind(Include = "Id,CitationNumber,StatuteOrdinance,Description,Withheld,Probation,PrivilegeRevoked,FineAmount,RestitutionAmount,CaseId,ActionId,RulingId,CreateDate,CreatorId,Creator,ChangeDate,LastChangerId,Changer")] Citation citation)
+		{
+			if (ModelState.IsValid)
+			{
+				db.Entry(citation).State = EntityState.Modified;
+				db.SaveChanges();
+				return RedirectToAction("CaseCitationDetail", new { caseId = citation.CaseId });
+			}
+
+			return PartialView(citation);
+		}
+
+		// GET: Citations/Delete/5
+		[HttpGet]
+		public ActionResult _DeleteCitation(int citationId)
+		{
+
+			Citation citation = db.Citations.Find(citationId);
+			if (citation == null)
+			{
+				return HttpNotFound();
+			}
+			return PartialView(citation);
+		}
+
+		// POST: Citations/Delete/5
+		[HttpPost, ActionName("_DeleteCitation")]
+		[ValidateAntiForgeryToken]
+		public ActionResult _DeleteCitConfirmed(int citationId)
+		{
+			Citation citation = db.Citations.Find(citationId);
+			db.Citations.Remove(citation);
+			db.SaveChanges();
+			return RedirectToAction("CaseCitationDetail", new { caseId = citation.CaseId });
+		}
+
+		[HttpGet]
+		public ActionResult CaseCitationDetail(int caseId)
+		{
+			//var currentCase = db.Cases.Include("Offender").First(f => f.Id == caseId);
+			var currentCase = db.Cases.First(f => f.Id == caseId);
+			return View(currentCase);
+		}
+
+		protected override void Dispose(bool disposing)
+		{
+			if (disposing)
+			{
+				db.Dispose();
+			}
+			base.Dispose(disposing);
+
 		}
 	}
 }

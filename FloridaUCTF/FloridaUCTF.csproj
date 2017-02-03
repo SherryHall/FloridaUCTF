@@ -309,6 +309,11 @@
     <Content Include="Views\Home\AddAddress.cshtml" />
     <Content Include="Views\Home\AddCase.cshtml" />
     <Content Include="Views\Home\_OffenderSummary.cshtml" />
+    <Content Include="Views\Home\CaseCitationDetail.cshtml" />
+    <Content Include="Views\Home\_AddCitation.cshtml" />
+    <Content Include="Views\Home\EditOffender.cshtml" />
+    <Content Include="Views\Home\EditCase.cshtml" />
+    <Content Include="Views\Home\DeleteCase.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

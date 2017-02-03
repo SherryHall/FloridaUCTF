@@ -1,0 +1,47 @@
+﻿@model FloridaUCTF.Models.Citation
+
+
+@using (Html.BeginForm())
+{
+	@Html.AntiForgeryToken()
+
+	<div class="form-horizontal">
+		<h4>Citation</h4>
+		<hr />
+		@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+		<div class="row">
+			<div class="col-md-2">
+				<div class="form-group">
+					@Html.LabelFor(model => model.CitationNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+					<div class="col-md-10">
+						@Html.EditorFor(model => model.CitationNumber, new { htmlAttributes = new { @class = "form-control" } })
+						@Html.ValidationMessageFor(model => model.CitationNumber, "", new { @class = "text-danger" })
+					</div>
+				</div>
+			</div>
+			<div class="col-md-10">
+				<div class="form-group">
+					@Html.LabelFor(model => model.StatuteOrdinance, htmlAttributes: new { @class = "control-label col-md-3" })
+					<div class="col-md-10">
+						@Html.EditorFor(model => model.StatuteOrdinance, new { htmlAttributes = new { @class = "form-control" } })
+						@Html.ValidationMessageFor(model => model.StatuteOrdinance, "", new { @class = "text-danger" })
+					</div>
+				</div>
+
+				<div class="form-group">
+					@Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+					<br />
+					<div class="col-md-10">
+						@Html.TextAreaFor(model => model.Description, 5, 100, new { htmlAttributes = new { @class = "form-control" } })
+						@Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-md-12 text-center">
+				<input type="submit" value="Create" class="btn btn-primary" />
+			</div>
+		</div>
+	</div>
+}

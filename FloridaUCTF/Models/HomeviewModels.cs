@@ -20,10 +20,11 @@ namespace FloridaUCTF.Models
 		public string AKA { get; set; }
 
 		[StringLength(30)]
-		[Display(Name = "D.L.#")]
+		[Display(Name = "Drive Lic#")]
 		public string DriveLicense { get; set; }
 
 		[StringLength(100)]
+		[Display(Name = "Bus. Name")]
 		public string BusinessName { get; set; }
 
 		[StringLength(75)]

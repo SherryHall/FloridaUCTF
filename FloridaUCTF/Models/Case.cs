@@ -39,15 +39,15 @@ namespace FloridaUCTF.Models
 
 		[ForeignKey("OffenderAddressId")]
 		[Display(Name = "Home Address")]
-		public OffenderAddress OffenderAddress { get; set; }
+		public virtual OffenderAddress OffenderAddress { get; set; }
 
 		[ForeignKey("OffenderId")]
-		public Offender Offender { get; set; }
+		public virtual Offender Offender { get; set; }
 
 		public string OfficialContactId { get; set; }
 		[ForeignKey("OfficialContactId")]
-		public ApplicationUser OfficialContact { get; set; }
+		public virtual ApplicationUser OfficialContact { get; set; }
 
-		public ICollection<Citation> Citations { get; set; }
+		public virtual ICollection<Citation> Citations { get; set; }
 	}
 }

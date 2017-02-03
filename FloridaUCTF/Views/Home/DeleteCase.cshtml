@@ -1,0 +1,73 @@
+﻿@model FloridaUCTF.Models.Case
+
+@{
+    ViewBag.Title = "Delete Case " + Model.CaseNumber;
+}
+
+<h2>DeleteCase</h2>
+
+<h3>Are you sure you want to delete this case?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Offender.LastName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Offender.LastName)
+        </dd>
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CaseNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CaseNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CaseDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CaseDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CaseCity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CaseCity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CaseCounty)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CaseCounty)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BusinessName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BusinessName)
+        </dd>
+
+ 
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

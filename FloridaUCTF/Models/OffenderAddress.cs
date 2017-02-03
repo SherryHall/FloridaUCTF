@@ -13,6 +13,7 @@ namespace FloridaUCTF.Models
 
 		[Required]
 		[StringLength(100)]
+		[Display(Name ="Home Address")]
 		public string Address { get; set; }
 
 		[Required]
@@ -26,6 +27,13 @@ namespace FloridaUCTF.Models
 		[Required]
 		[StringLength(10)]
 		public string Zip { get; set; }
+
+		[NotMapped]
+		[Display(Name = "City,State,Zip")]
+		public string CityStateZip
+		{
+			get { return this.City + ", " + this.State + " " + Zip; }
+		}
 
 		public int? OffenderId { get; set; }
 		[ForeignKey("OffenderId")]
