@@ -25,6 +25,9 @@ textarea {
 
 
 /***  Start custom css ***/
+.btn-link-danger {
+	color : red;
+}
 .group-heading {
 	background-color: #e6e6fe;
 	font-family: Lucida Sans Unicode;
@@ -32,8 +35,26 @@ textarea {
 	letter-spacing: 1px;
 }
 
+.citation_block > div:nth-child(odd) {
+    background: #f9f9f9;
+}
+.cit_num_box {
+	border-right: 2px lightblue dotted;
+}
+.field-label {
+	float: left;
+    width: 160px;
+    overflow: hidden;
+    clear: left;
+    text-align: right;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+	font-weight: bold;
+}
 .long-text {
 	width: auto;
-	height: 100px;
-	overflow: auto;
+	max-height: 50px;
+	overflow : auto;
+	text-overflow : ellipsis;
+	/*overflow: auto;*/
 }

@@ -19,7 +19,7 @@ namespace FloridaUCTF.Models
 		public string CaseNumber { get; set; }
 
 		[Display(Name = "Date")]
-		[DisplayFormat(DataFormatString = "{0:MM-dd-yyyy}")]
+		[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM-dd-yyyy}")]
 		public DateTime CaseDate { get; set; } = DateTime.Now;
 
 		[StringLength(75)]

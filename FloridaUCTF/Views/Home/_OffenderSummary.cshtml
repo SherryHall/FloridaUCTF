@@ -1,4 +1,4 @@
-﻿@model FloridaUCTF.Models.Case
+﻿@model FloridaUCTF.Models.Offender
 
 <div class="panel">
 
@@ -7,15 +7,15 @@
 		<table>
 			<tr>
 				<th> Offender Name: </th>
-				<td> @Model.Offender.Full_Name </td>
+				<td> @Model.Full_Name </td>
 			</tr>
 			<tr>
 				<th> AKAs: </th>
-				<td> @Model.Offender.AllAKAs </td>
+				<td> @Model.AllAKAs </td>
 			</tr>
 			<tr>
 				<th> Driver's License: </th>
-				<td> @Model.Offender.DriveLicenseState @Model.Offender.DriveLicense </td>
+				<td> @Model.DriveLicenseState @Model.DriveLicense </td>
 			</tr>
 		</table>
 	</div>

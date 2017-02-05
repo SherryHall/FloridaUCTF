@@ -1,0 +1,248 @@
+﻿@model FloridaUCTF.Models.Offender
+
+@{
+	ViewBag.Title = "AllOffenderDetail";
+}
+
+<h2>AllOffenderDetail</h2>
+
+<div class="row">
+	<div class="col-md-10">
+		@Html.Partial("_OffenderSummary")
+		<hr />
+		<div class="col-md-2">
+			@Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+			@Html.ActionLink("Back to List", "Index")
+		</div>
+	</div>
+</div>
+<div class="row">
+	@Html.ActionLink("Add a Case", "AddCase", new { offenderId = Model.Id }, new { @class = "btn btn-info" }) |
+</div>
+@foreach (var currCase in Model.Cases)
+{
+	<div class="row">
+		<hr />
+		<div class="col-md-3">
+			<div class="panel group-heading"> Case Information </div>
+
+			<dl class="dl-horizontal">
+				<dt>
+					@Html.DisplayNameFor(model => currCase.CaseNumber)
+				</dt>
+
+				<dd>
+					@Html.DisplayFor(model => currCase.CaseNumber)
+				</dd>
+
+				<dt>
+					@Html.DisplayNameFor(model => currCase.CaseDate)
+				</dt>
+
+				<dd>
+					@Html.DisplayFor(model => currCase.CaseDate)
+				</dd>
+
+				<dt>
+					@Html.DisplayNameFor(model => currCase.CaseCity)
+				</dt>
+
+				<dd>
+					@Html.DisplayFor(model => currCase.CaseCity)
+				</dd>
+
+				<dt>
+					@Html.DisplayNameFor(model => currCase.CaseCounty)
+				</dt>
+
+				<dd>
+					@Html.DisplayFor(model => currCase.CaseCounty)
+				</dd>
+			</dl>
+		</div>
+		<div class="col-md-4">
+			<div class="panel group-heading"> OFFENDER INFORMATION - WHEN CITED </div>
+			<dl class="dl-horizontal">
+				<dt>
+					@Html.DisplayNameFor(model => currCase.BusinessName)
+				</dt>
+
+				<dd>
+					@Html.DisplayFor(model => currCase.BusinessName)
+				</dd>
+				<dt>
+					@Html.DisplayNameFor(model => currCase.OffenderAddress.Address)
+				</dt>
+
+				<dd>
+					@Html.DisplayFor(model => currCase.OffenderAddress.Address)
+
+				</dd>
+				<dt>
+
+				</dt>
+
+				<dd>
+					@currCase.OffenderAddress.CityStateZip
+				</dd>
+			</dl>
+		</div>
+		<div class="col-md-4">
+			<div class="panel group-heading"> OFFICIAL CONTACT </div>
+			<dl class="dl-horizontal">
+				<dd>
+					@Html.DisplayFor(model => currCase.OfficialContact.FirstName) @Html.DisplayFor(model => currCase.OfficialContact.LastName)
+				</dd>
+
+				<dd>
+					@Html.DisplayFor(model => currCase.OfficialContact.Title)
+
+				</dd>
+
+				<dd>
+					@currCase.OfficialContact.Email
+				</dd>
+				<dd>
+					@currCase.OfficialContact.PhoneNumber
+				</dd>
+			</dl>
+		</div>
+		<div class="col-md-1 center-block">
+			<p>
+				@Html.ActionLink("Edit", "CaseCitationDetail", new { caseId = Model.Id }, new { @class = "btn-sm btn-info" }) |
+			</p>
+		</div>
+	</div>
+
+	<div>
+
+		@foreach (var citation in currCase.Citations)
+		{
+			<div class="citation-box">
+				<div class="well">
+					<div class="row">
+						<div class="col-md-1 case_cit_block">
+							@currCase.
+							<b>@Html.DisplayNameFor(model => citation.CitationNumber) </b>
+							@Html.DisplayFor(model => citation.CitationNumber)
+						</div>
+						<div class="col-md-7">
+							<div class="row">
+								<b>@Html.DisplayNameFor(model => citation.StatuteOrdinance) &nbsp;</b>
+								@citation.StatuteOrdinance
+							</div>
+							<div class="row">
+								<b>@Html.DisplayNameFor(model => citation.Description)</b>
+							</div>
+							<div class="row long-text">
+								@citation.Description
+							</div>
+						</div>
+
+						<div class="col-md-4">
+							<div class="row">
+								<div class="form-group">
+									@Html.LabelFor(model => citation.ActionId, "ActionId", htmlAttributes: new { @class = "control-label col-md-2" })
+									<div class="col-md-10">
+										@*@Html.DropDownList("ActionId", null, htmlAttributes: new { @class = "form-control" })*@
+										@Html.DropDownList("ActionId", null, htmlAttributes: new { @class = "form-control" })
+										
+										@Html.ValidationMessageFor(model => citation.ActionId, "", new { @class = "text-danger" })
+									</div>
+								</div>
+
+								<div class="form-group">
+									@Html.LabelFor(model => citation.RulingId, "RulingId", htmlAttributes: new { @class = "control-label col-md-2" })
+									<div class="col-md-10">
+										@Html.DropDownList("RulingId", null, htmlAttributes: new { @class = "form-control" })
+										@Html.ValidationMessageFor(model => citation.RulingId, "", new { @class = "text-danger" })
+									</div>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="form-group">
+									@Html.LabelFor(model => citation.Withheld, htmlAttributes: new { @class = "control-label col-md-2" })
+									<div class="col-md-10">
+										<div class="checkbox">
+											@Html.EditorFor(model => citation.Withheld)
+											@Html.ValidationMessageFor(model => citation.Withheld, "", new { @class = "text-danger" })
+										</div>
+									</div>
+								</div>
+								<div class="form-group">
+									@Html.LabelFor(model => citation.Probation, htmlAttributes: new { @class = "control-label col-md-2" })
+									<div class="col-md-10">
+										<div class="checkbox">
+											@Html.EditorFor(model => citation.Probation)
+											@Html.ValidationMessageFor(model => citation.Probation, "", new { @class = "text-danger" })
+										</div>
+									</div>
+								</div>
+								<div class="form-group">
+									@Html.LabelFor(model => citation.PrivilegeRevoked, htmlAttributes: new { @class = "control-label col-md-2" })
+									<div class="col-md-10">
+										<div class="checkbox">
+											@Html.EditorFor(model => citation.PrivilegeRevoked)
+											@Html.ValidationMessageFor(model => citation.PrivilegeRevoked, "", new { @class = "text-danger" })
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="form-group">
+									@Html.LabelFor(model => citation.FineAmount, htmlAttributes: new { @class = "control-label col-md-2" })
+									<div class="col-md-10">
+										@Html.EditorFor(model => citation.FineAmount, new { htmlAttributes = new { @class = "form-control" } })
+										@Html.ValidationMessageFor(model => citation.FineAmount, "", new { @class = "text-danger" })
+									</div>
+								</div>
+								<div class="form-group">
+									@Html.LabelFor(model => citation.RestitutionAmount, htmlAttributes: new { @class = "control-label col-md-2" })
+									<div class="col-md-10">
+										@Html.EditorFor(model => citation.RestitutionAmount, new { htmlAttributes = new { @class = "form-control" } })
+										@Html.ValidationMessageFor(model => citation.RestitutionAmount, "", new { @class = "text-danger" })
+									</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+				}
+	</div>
+}
+<script>
+	var ShowAddCitationForm = function (caseId) {
+		$.ajax({
+			url: "/home/_AddCitation/?caseId=" + caseId,
+			method: "GET",
+			dataType: "html",
+			success: function (partial) {
+				$("#ManageCitationForm").html(partial);
+			}
+		})
+	}
+	var ShowEditCitationForm = function (citationId) {
+		$.ajax({
+			url: "/home/_EditCitation/?citationId=" + citationId,
+			method: "GET",
+			dataType: "html",
+			success: function (partial) {
+				$("#ManageCitationForm").html(partial);
+			}
+		})
+	}
+	var ShowDeleteCitationForm = function (citationId) {
+		$.ajax({
+			url: "/home/_DeleteCitation/?citationId=" + citationId,
+			method: "GET",
+			dataType: "html",
+			success: function (partial) {
+				$("#ManageCitationForm").html(partial);
+			}
+		})
+	}
+</script>

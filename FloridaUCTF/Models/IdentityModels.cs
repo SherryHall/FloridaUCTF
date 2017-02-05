@@ -55,7 +55,7 @@ namespace FloridaUCTF.Models
 		[StringLength(10)]
 		public string Zip { get; set; }
 
-		public virtual ICollection<Case> Cases { get; set; }
+		public ICollection<Case> Cases { get; set; }
 
 		public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
@@ -84,7 +84,8 @@ namespace FloridaUCTF.Models
 		public virtual DbSet<Citation> Citations { get; set; }
 		public virtual DbSet<Action> Actions { get; set; }
 		public virtual DbSet<Ruling> Rulings { get; set; }
-		
+		public virtual DbSet<State> States { get; set; }
+
 
 	}
 }

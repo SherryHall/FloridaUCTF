@@ -9,9 +9,9 @@
 		<h2>Case Details for -  @Model.Offender.FirstName  @Model.Offender.LastName  </h2>
 	</div>
 	</div>
-<div class=" = "row">
+<div class="row">
 	<div class="col-md-12 text-center">
-		@Html.ActionLink("Finished", "AllCaseDetail", "Home",new { }, new { @class = "btn btn-success" })
+		@Html.ActionLink("Finished", "AllOffenderDetail", "Home",new { offenderId = Model.OffenderId}, new { @class = "btn btn-success" })
 	</div>
 </div>
 
@@ -84,14 +84,14 @@
 	<div class="col-md-3 center-block">
 		<p>
 			@Html.ActionLink("Edit", "EditCase", new { caseId = Model.Id }, new { @class = "btn-sm btn-info" }) |
-			@Html.ActionLink("Delete", "DeleteCase", new { caseId = Model.Id }, new { @class= "bnt-link btn-warning" })
+			@Html.ActionLink("Add New Offender", "AddOffender", new { @class= "btn-link btn-link-danger" })
 		</p>
 	</div>
 </div>
 <div>
 
 <div class="row">
-	<button class="btn-sm btn-primary" onclick="ShowAddCitationForm(@Model.Id)">Add a Citation</button>
+	<button class="btn btn-primary" onclick="ShowAddCitationForm(@Model.Id)">Add Citation</button>
 </div>
 
 	<div id="ManageCitationForm"></div>
@@ -105,26 +105,31 @@ else
 {
 	foreach (var citation in Model.Citations)
 	{
-		<div class="row">
-			<div class="col-md-2">
-				@Html.DisplayNameFor(model => citation.CitationNumber)
-				@citation.CitationNumber
-			</div>
-			<div class="col-md-8">
+		<div class="citation-box">
+			<div class="well">
 				<div class="row">
-					@Html.DisplayNameFor(model => citation.StatuteOrdinance)
-					@citation.StatuteOrdinance
+					<div class="col-md-1 case_cit_block">
+						
+						<b>@Html.DisplayNameFor(model => citation.CitationNumber) </b>
+						@Html.DisplayFor(model => citation.CitationNumber)
+					</div>
+					<div class="col-md-9">
+						<div class="row">
+							<b>@Html.DisplayNameFor(model => citation.StatuteOrdinance) &nbsp;</b>
+							@citation.StatuteOrdinance
+						</div>
+						<div class="row">
+							<b>@Html.DisplayNameFor(model => citation.Description)</b>
+</div>
+						<div class="row long-text">
+							@citation.Description
+						</div>
+					</div>
+					<div class="col-md-2">
+						<button class="btn btn-info" onclick="ShowEditCitationForm(@citation.Id)">Edit</button>
+						<button class="btn btn-link btn-link-danger" onclick="ShowDeleteCitationForm(@citation.Id)">Delete</button>
+					</div>
 				</div>
-				<div class="row">
-					@Html.DisplayNameFor(model => citation.Description)
-				</div>
-				<div class="row long-text">
-					@citation.Description
-				</div>
-			</div>
-			<div class="col-md-2">
-				<button class="btn btn-info" onclick="ShowEditCitationForm(@citation.Id)">Edit</button>
-				<button class="btn btn-link btn-warning" onclick="ShowDeleteCitationForm(@citation.Id)">Delete</button>
 			</div>
 		</div>
 	}

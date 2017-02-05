@@ -33,9 +33,16 @@ namespace FloridaUCTF.Controllers
 
 			return View();
 		}
+
 		[HttpGet]
 		public ActionResult AddOffender()
 		{
+			ViewBag.States = db.States.Select(x =>
+				  new SelectListItem
+				  {
+					  Value = x.StateCode,
+					  Text = x.StateName
+				  });
 			return View();
 		}
 		[HttpPost]
@@ -66,7 +73,7 @@ namespace FloridaUCTF.Controllers
 
 			var newCase = new Case();
 			newCase.Offender = db.Offenders.Find(offenderId);
-			newCase.OffenderAddress = db.OffenderAddresses.Find(currentOffender.DefaultAddressId );
+			newCase.OffenderAddress = db.OffenderAddresses.Find(currentOffender.DefaultAddressId);
 			newCase.OfficialContact = db.Users.Find(HttpContext.User.Identity.GetUserId());
 			return View(newCase);
 		}
@@ -201,6 +208,26 @@ namespace FloridaUCTF.Controllers
 			return View(currentCase);
 		}
 
+
+		[HttpGet]
+		public ActionResult AllOffenderDetail(int offenderId)
+		{
+			ViewBag.Actions = db.Actions.Select(x =>
+				 new SelectListItem
+				 {
+					  Value = x.Id.ToString(),
+					  Text = x.Description
+				  });
+			ViewBag.Rulings = db.Rulings.Select(x =>
+				 new SelectListItem
+				 {
+					 Value = x.Id.ToString(),
+					 Text = x.Description
+				 });
+			//var currentCase = db.Cases.Include("Offender").First(f => f.Id == caseId);
+			var currentOffender = db.Offenders.First(f => f.Id == offenderId);
+			return View(currentOffender);
+		}
 		protected override void Dispose(bool disposing)
 		{
 			if (disposing)

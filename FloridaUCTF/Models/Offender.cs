@@ -56,9 +56,9 @@ namespace FloridaUCTF.Models
 
 		public int?  DefaultAddressId { get; set; }
 
-		public ICollection<OffenderAddress> OffenderAddresses { get; set; }
+		public virtual ICollection<OffenderAddress> OffenderAddresses { get; set; }
 
-		public ICollection<Case> Cases { get; set; }
+		public virtual ICollection<Case> Cases { get; set; }
 
 
 

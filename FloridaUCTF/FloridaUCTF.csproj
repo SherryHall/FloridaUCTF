@@ -216,7 +216,15 @@
     <Compile Include="Migrations\201702011718425_initalize.Designer.cs">
       <DependentUpon>201702011718425_initalize.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controllers\Configuration.cs" />
+    <Compile Include="Migrations\201702042112458_MissingConfigClass.cs" />
+    <Compile Include="Migrations\201702042112458_MissingConfigClass.Designer.cs">
+      <DependentUpon>201702042112458_MissingConfigClass.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201702042304080_SeedData.cs" />
+    <Compile Include="Migrations\201702042304080_SeedData.Designer.cs">
+      <DependentUpon>201702042304080_SeedData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Action.cs" />
     <Compile Include="Models\Case.cs" />
@@ -228,6 +236,7 @@
     <Compile Include="Models\OffenderAddress.cs" />
     <Compile Include="Models\Ruling.cs" />
     <Compile Include="Models\StampInfo.cs" />
+    <Compile Include="Models\State.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -251,6 +260,8 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <None Include="Properties\PublishProfiles\FloridaUCTF - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\FloridaUCTF - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -314,6 +325,7 @@
     <Content Include="Views\Home\EditOffender.cshtml" />
     <Content Include="Views\Home\EditCase.cshtml" />
     <Content Include="Views\Home\DeleteCase.cshtml" />
+    <Content Include="Views\Home\AllOffenderDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -327,6 +339,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201702011718425_initalize.resx">
       <DependentUpon>201702011718425_initalize.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702042112458_MissingConfigClass.resx">
+      <DependentUpon>201702042112458_MissingConfigClass.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702042304080_SeedData.resx">
+      <DependentUpon>201702042304080_SeedData.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
