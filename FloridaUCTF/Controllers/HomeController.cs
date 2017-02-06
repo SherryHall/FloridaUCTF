@@ -69,9 +69,8 @@ namespace FloridaUCTF.Controllers
 			}
 
 			var searchResults = searchQuery.ToList();
-			return View(searchResults);
+			return PartialView(searchResults);
 		}
-
 
 
 		public ActionResult About()
@@ -294,18 +293,22 @@ namespace FloridaUCTF.Controllers
 		}
 
 		[HttpPost]
-		[ValidateAntiForgeryToken]
-		public ActionResult SaveVerdictChanges (Offender currOffender)
+		public ActionResult SaveVerdictChanges (IEnumerable<SaveVerdictViewModel> verdictChanges)
 		{
-			foreach (var currCase in currOffender.Cases)
+			foreach (var currChange in verdictChanges)
 			{
-				foreach (var citation in currCase.Citations)
-				{
-					//db.SaveChanges(citation);
-				}
+				var chgCitation = db.Citations.Find(currChange.CiteId);
+				chgCitation.ActionId = currChange.Action;
+				chgCitation.RulingId = currChange.Ruling;
+				chgCitation.Withheld = currChange.Withheld;
+				chgCitation.Probation = currChange.Probation;
+				chgCitation.PrivilegeRevoked = currChange.Revoked;
+				chgCitation.FineAmount = currChange.Fine;
+				chgCitation.RestitutionAmount = currChange.Restitution;
+				db.SaveChanges();
 			}
 
-			return RedirectToAction("AllOffenderDetail.cshtml", new { offenderId = currOffender.Id });
+			return Json(new { success = true, result = verdictChanges });
 		}
 
 

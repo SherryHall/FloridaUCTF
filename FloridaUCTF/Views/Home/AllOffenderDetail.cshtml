@@ -3,6 +3,7 @@
 @{
 	ViewBag.Title = "AllOffenderDetail";
 }
+@Html.AntiForgeryToken()
 
 <h2>AllOffenderDetail</h2>
 
@@ -17,8 +18,15 @@
 	</div>
 </div>
 <div class="row">
+	<div class="col-md-2">
 	@Html.ActionLink("Add a Case", "AddCase", new { offenderId = Model.Id }, new { @class = "btn btn-info" }) |
+	</div>
+	<div class="col-md-offset-6 col-md-4">
+		<button class="btn btn-success" onclick="SaveVerdictChanges()">Save All Verdict Changes</button>
+	</div>
 </div>
+
+@* *** Loop Through all of the Cases for this Offender (used For instead of Foreach due to dropdown probs) *** *@
 @for (var c = 0; c < Model.Cases.Count; c++)
 {
 	<div class="row">
@@ -109,24 +117,21 @@
 		</div>
 		<div class="col-md-1 center-block">
 			<p>
-				<div class="row">
-					<div class="col-md-2">
-						@Html.ActionLink("Edit", "CaseCitationDetail", new { caseId = Model.Id }, new { @class = "btn-sm btn-info" })
-					</div>
-					<div class="col-md-offset-5 col-md-5">
-						<button class="btn btn-success" onclick="SaveVerdictChgs(@Model)">Save All Verdict Changes</button>
-					</div>
-				</div>
+						@Html.ActionLink("Edit Case", "CaseCitationDetail", new { caseId = Model.Id }, new { @class = "btn btn-info" })
 			</p>
 		</div>
 	</div>
 
 	<div>
-
+		@*  Loop Through all of the Citation for this Offender Cases  (used For instead of Foreach due to dropdown probs)  *@
 		@for (var i = 0; i < Model.Cases[c].Citations.Count; i++)
 		{
 
 			<div class="citation-box">
+				<div>
+					@Html.Hidden("citation-id", Model.Cases[c].Citations[i].Id, new { @class = "citation-id" })
+				</div>
+
 				<div class="well">
 					<div class="row">
 						<div class="col-md-1 case_cit_block">
@@ -146,6 +151,7 @@
 							</div>
 						</div>
 
+
 						<div class="col-md-5">
 							<div class="row">
 								<div class="col-md-6">
@@ -153,7 +159,7 @@
 										@Html.LabelFor(model => Model.Cases[c].Citations[i].ActionId, "ActionId", htmlAttributes: new { @class = "control-label col-md-2" })
 										<br />
 										<div class="col-md-10">
-											@Html.DropDownListFor(m => Model.Cases[c].Citations[i].ActionId, new SelectList(ViewBag.ActionsList, "Id", "Description"))
+											@Html.DropDownListFor(m => Model.Cases[c].Citations[i].ActionId, new SelectList(ViewBag.ActionsList, "Id", "Description"), new { @class = "cite-action" })
 											@Html.ValidationMessageFor(model => Model.Cases[c].Citations[i].ActionId, "", new { @class = "text-danger" })
 										</div>
 									</div>
@@ -162,7 +168,7 @@
 									<div class="form-group">
 										@Html.LabelFor(model => Model.Cases[c].Citations[i].RulingId, "RulingId", htmlAttributes: new { @class = "control-label col-md-2" })
 										<div class="col-md-10">
-											@Html.DropDownListFor(m => Model.Cases[c].Citations[i].RulingId, new SelectList(ViewBag.RulingsList, "Id", "Description"))
+											@Html.DropDownListFor(m => Model.Cases[c].Citations[i].RulingId, new SelectList(ViewBag.RulingsList, "Id", "Description"), new { @class = "cite-ruling" })
 											@Html.ValidationMessageFor(model => Model.Cases[c].Citations[i].RulingId, "", new { @class = "text-danger" })
 										</div>
 									</div>
@@ -175,7 +181,7 @@
 										@Html.LabelFor(model => Model.Cases[c].Citations[i].Withheld, htmlAttributes: new { @class = "control-label col-md-9 checkbox-label" })
 										<div class="col-md-3">
 											<div class="checkbox">
-												@Html.CheckBoxFor(model => Model.Cases[c].Citations[i].Withheld)
+												@Html.CheckBoxFor(model => Model.Cases[c].Citations[i].Withheld, new { @class = "cite-withheld" })
 												@Html.ValidationMessageFor(model => Model.Cases[c].Citations[i].Withheld, "", new { @class = "text-danger" })
 											</div>
 										</div>
@@ -186,7 +192,7 @@
 										@Html.LabelFor(model => Model.Cases[c].Citations[i].Probation, htmlAttributes: new { @class = "control-label col-md-9 checkbox-label" })
 										<div class="col-md-3">
 											<div class="checkbox">
-												@Html.CheckBoxFor(model => Model.Cases[c].Citations[i].Probation)
+												@Html.CheckBoxFor(model => Model.Cases[c].Citations[i].Probation, new { @class = "cite-probabion" })
 												@Html.ValidationMessageFor(model => Model.Cases[c].Citations[i].Probation, "", new { @class = "text-danger" })
 											</div>
 										</div>
@@ -197,7 +203,7 @@
 										@Html.LabelFor(model => Model.Cases[c].Citations[i].PrivilegeRevoked, htmlAttributes: new { @class = "control-label col-md-9 checkbox-label" })
 										<div class="col-md-3">
 											<div class="checkbox">
-												@Html.CheckBoxFor(model => Model.Cases[c].Citations[i].PrivilegeRevoked)
+												@Html.CheckBoxFor(model => Model.Cases[c].Citations[i].PrivilegeRevoked, new { @class = "cite-revoked" })
 												@Html.ValidationMessageFor(model => Model.Cases[c].Citations[i].PrivilegeRevoked, "", new { @class = "text-danger" })
 											</div>
 										</div>
@@ -210,7 +216,7 @@
 									<div class="form-group">
 										@Html.LabelFor(model => Model.Cases[c].Citations[i].FineAmount, htmlAttributes: new { @class = "control-label col-md-5" })
 										<div class="col-md-7">
-											@Html.EditorFor(model => Model.Cases[c].Citations[i].FineAmount, new { htmlAttributes = new { @class = "form-control" } })
+											@Html.EditorFor(model => Model.Cases[c].Citations[i].FineAmount, new { htmlAttributes = new { @class = "form-control cite-fine" } })
 											@Html.ValidationMessageFor(model => Model.Cases[c].Citations[i].FineAmount, "", new { @class = "text-danger" })
 										</div>
 									</div>
@@ -219,7 +225,7 @@
 									<div class="form-group">
 										@Html.LabelFor(model => Model.Cases[c].Citations[i].RestitutionAmount, htmlAttributes: new { @class = "control-label col-md-5" })
 										<div class="col-md-7">
-											@Html.EditorFor(model => Model.Cases[c].Citations[i].RestitutionAmount, new { htmlAttributes = new { @class = "form-control" } })
+											@Html.EditorFor(model => Model.Cases[c].Citations[i].RestitutionAmount, new { htmlAttributes = new { @class = "form-control cite-restitution" } })
 											@Html.ValidationMessageFor(model => Model.Cases[c].Citations[i].RestitutionAmount, "", new { @class = "text-danger" })
 										</div>
 									</div>
@@ -230,19 +236,56 @@
 					</div>
 				</div>
 			</div>
+
 				}
 	</div>
 }
-<script>
-	var SaveVerdictChanges = function (currOffender) {
-		$.ajax({
-			url: "/home/SaveVerdictChngs/?offenderId=" + offenderId,
-			method: "POST",
-			data: ,
-			//success: function (partial) {
-			//	$("#ManageCitationForm").html(partial);
-			//}
-		})
-	}
 
+@section scripts{
+<script>
+
+        var buildJson = () => {
+
+            /*
+                idea: grab ever parent, and from that parent, "convert the html into a json object"
+            */
+
+            var rv = [];
+            var citationBoxes = $(".citation-box");
+
+            if (citationBoxes) {
+                for (var i = 0; i < citationBoxes.length; i++) {
+
+                    var citationBox = $(citationBoxes[i]);
+
+                    rv.push({
+                    	CiteId: citationBox.find("input.citation-id").val(),
+                    	Action : citationBox.find("select.cite-action").val(),
+                    	Ruling: citationBox.find("select.cite-ruling").val(),
+                    	Withheld: citationBox.find("select.cite-withheld").val(),
+                    	Probation: citationBox.find("select.cite-probation").val(),
+                		Revoked: citationBox.find("select.cite-revoked").val(),
+                		Fine: citationBox.find("input.cite-fine").val(),
+						Restitution: citationBox.find("input.cite-restitution").val()
+                    });
+                }
+            }
+
+            return rv;
+        };
+
+        var SaveVerdictChanges = () => {
+
+            var data = buildJson()
+
+            $.ajax({
+
+            	url: "/home/SaveVerdictChanges",
+                data: JSON.stringify(data),
+                complete: (data) => { console.log(data); },
+                contentType: "application/json",
+                method: "POST"
+            })
+        };
 </script>
+}

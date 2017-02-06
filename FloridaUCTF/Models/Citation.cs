@@ -35,7 +35,7 @@ namespace FloridaUCTF.Models
 		public int FineAmount { get; set; }
 
 		[Display(Name = "Res. $")]
-		
+		[Range(0, 99999)]
 		public int RestitutionAmount { get; set; }
 
 		public int CaseId { get; set; }

@@ -7,6 +7,33 @@ using System.Web;
 
 namespace FloridaUCTF.Models
 {
+	public class AddOffenderViewModel
+	{
+		public Offender Offender { get; set; }
+
+		public OffenderAddress OffenderAddress { get; set; }
+	}
+
+	public class SaveVerdictViewModel
+	{
+		public int CiteId { get; set; }
+
+		public int Action { get; set; }
+
+		public int Ruling { get; set; } 
+
+		public bool Withheld { get; set; }
+
+		public bool Probation { get; set; }
+
+		public bool Revoked { get; set; }
+
+		public int Fine { get; set; }
+
+		public int Restitution { get; set; }
+
+	}
+
 	public class SearchViewModel
 	{
 		[StringLength(75)]
@@ -83,11 +110,5 @@ namespace FloridaUCTF.Models
 		}
 	}
 
-	public class AddOffenderViewModel
-	{
-		public Offender Offender { get; set; }
-
-		public OffenderAddress OffenderAddress { get; set; }
-	}
 
 }

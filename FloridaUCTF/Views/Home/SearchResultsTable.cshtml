@@ -21,11 +21,9 @@
             @Html.DisplayNameFor(model => model.FirstAKA)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Full_Name)
+            @Html.DisplayNameFor(model => model.DriveLicense
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AllAKAs)
-        </th>
+ 
         <th></th>
     </tr>
 
@@ -48,15 +46,13 @@
             @Html.DisplayFor(modelItem => item.FirstAKA)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Full_Name)
+            @Html.DisplayFor(modelItem => item.DriveLicense)
         </td>
+
         <td>
-            @Html.DisplayFor(modelItem => item.AllAKAs)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+  
             @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+ 
         </td>
     </tr>
 }

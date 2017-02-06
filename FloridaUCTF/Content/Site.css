@@ -42,7 +42,7 @@ textarea {
 	border-right: 2px lightblue dotted;
 }
 .checkbox-col {
-	padding-right : 0;
+	padding-right
 }
 .checkbox-label {
 	margin-bottom : 0;
@@ -61,7 +61,6 @@ textarea {
 .long-text {
 	width: auto;
 	max-height: 75px;
-	max-width : 750;
 	overflow : auto;
 	text-overflow : ellipsis;
 	/*overflow: auto;*/
