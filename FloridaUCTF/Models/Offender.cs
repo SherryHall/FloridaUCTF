@@ -58,7 +58,7 @@ namespace FloridaUCTF.Models
 
 		public virtual ICollection<OffenderAddress> OffenderAddresses { get; set; }
 
-		public virtual ICollection<Case> Cases { get; set; }
+		public virtual IList<Case> Cases { get; set; }
 
 
 

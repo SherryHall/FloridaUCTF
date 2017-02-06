@@ -27,23 +27,28 @@ namespace FloridaUCTF.Models
 
 		public bool Probation { get; set; }
 
+		[Display(Name = "Revoke Privlgs")]
 		public bool PrivilegeRevoked { get; set; }
 
 		[Display(Name = "Fine $")]
+		[Range(0,99999)]
 		public int FineAmount { get; set; }
 
 		[Display(Name = "Res. $")]
+		
 		public int RestitutionAmount { get; set; }
 
 		public int CaseId { get; set; }
 		[ForeignKey("CaseId")]
 		public Case Case { get; set; }
 
-		public int? ActionId { get; set; }
+		[Display(Name = "Action")]
+		public int ActionId { get; set; } = 1;
 		[ForeignKey("ActionId")]
 		public Action Action { get; set; }
 
-		public int? RulingId { get; set; }
+		[Display(Name = "Ruling")]
+		public int RulingId { get; set; } = 1;
 		[ForeignKey("RulingId")]
 		public Ruling Ruling { get; set; }
 

@@ -82,18 +82,20 @@ namespace FloridaUCTF.Migrations
 				new State() { StateCode = "WY", StateName = "Wyoming" });
 
 			context.Actions.AddOrUpdate(x => x.Id,
-				new Models.Action() { Id = 1, Description = "Arrest-Felony" },
-				new Models.Action() { Id = 2, Description = "Arrest-Misdemeanor" },
-				new Models.Action() { Id = 3, Description = "Citation" },
-				new Models.Action() { Id = 4, Description = "Notice to Appear-Felony" },
-				new Models.Action() { Id = 5, Description = "Notice to Appear-Misdemeanor" },
-				new Models.Action() { Id = 6, Description = "Verbal Warning" },
-				new Models.Action() { Id = 7, Description = "Written Warning" }
+				new Models.Action() { Id = 1, Description = " " },
+				new Models.Action() { Id = 2, Description = "Arrest-Felony" },
+				new Models.Action() { Id = 3, Description = "Arrest-Misdemeanor" },
+				new Models.Action() { Id = 4, Description = "Citation" },
+				new Models.Action() { Id = 5, Description = "Notice to Appear-Felony" },
+				new Models.Action() { Id = 6, Description = "Notice to Appear-Misdemeanor" },
+				new Models.Action() { Id = 7, Description = "Verbal Warning" },
+				new Models.Action() { Id = 8, Description = "Written Warning" }
 				);
 			context.Rulings.AddOrUpdate(x => x.Id,
-				new Ruling() { Id = 1, Description = "Dismissed" },
-				new Ruling() { Id = 2, Description = "Guilty" },
-				new Ruling() { Id = 3, Description = "Not Guilty" }
+				new Ruling() { Id = 1, Description = " " },
+				new Ruling() { Id = 2, Description = "Dismissed" },
+				new Ruling() { Id = 3, Description = "Guilty" },
+				new Ruling() { Id = 4, Description = "Not Guilty" }
 				);
 		}
 	}

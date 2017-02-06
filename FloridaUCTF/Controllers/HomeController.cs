@@ -20,6 +20,60 @@ namespace FloridaUCTF.Controllers
 			return View(searchRequest);
 		}
 
+		[HttpPost]
+		public ActionResult Index(SearchViewModel searchRequest)
+		{
+			var caseParameters = (searchRequest.BusinessName + searchRequest.CaseCity + searchRequest.CaseCounty);
+			var caseList = new List<int>();
+
+			if (!string.IsNullOrEmpty(caseParameters))
+			{
+
+				var caseQuery = db.Cases.Select(s => new { s.OffenderId, s.BusinessName, s.CaseCity, s.CaseCounty });
+				if (!string.IsNullOrEmpty(searchRequest.BusinessName))
+				{
+					caseQuery = caseQuery.Where(c => c.BusinessName.StartsWith(searchRequest.BusinessName));
+				}
+				if (!string.IsNullOrEmpty(searchRequest.CaseCounty))
+				{
+					caseQuery = caseQuery.Where(c => c.CaseCounty.StartsWith(searchRequest.CaseCounty));
+				}
+				if (!string.IsNullOrEmpty(searchRequest.CaseCity))
+				{
+					caseQuery = caseQuery.Where(c => c.CaseCity.StartsWith(searchRequest.CaseCity));
+				}
+				caseList = caseQuery.Select(c => c.OffenderId).ToList();
+			}
+
+			//var searchQuery = db.Offenders.Select(o => new { o.Id, o.LastName, o.FirstName, o.FirstAKA, o.LastAKA, o.DriveLicense, o.Cases });
+			var searchQuery = db.Offenders.Select(o => new { o.Id, o.LastName, o.FirstName, o.FirstAKA, o.LastAKA, o.DriveLicense, o.Cases });
+			if (!string.IsNullOrEmpty(caseParameters))
+			{
+				searchQuery = searchQuery.Where(o => caseList.Contains(o.Id));
+			}
+			if (!string.IsNullOrEmpty(searchRequest.LastName) )
+			{
+				searchQuery = searchQuery.Where(o => o.LastName.StartsWith(searchRequest.LastName));
+			}
+			if (!string.IsNullOrEmpty(searchRequest.FirstName))
+			{
+				searchQuery = searchQuery.Where(o => o.FirstName.StartsWith(searchRequest.FirstName));
+			}
+			if (!string.IsNullOrEmpty(searchRequest.AKA))
+			{
+				searchQuery = searchQuery.Where(o => o.LastAKA.StartsWith(searchRequest.AKA));
+			}
+			if (!string.IsNullOrEmpty(searchRequest.DriveLicense))
+			{
+				searchQuery = searchQuery.Where(o => o.DriveLicense.StartsWith(searchRequest.DriveLicense));
+			}
+
+			var searchResults = searchQuery.ToList();
+			return View(searchResults);
+		}
+
+
+
 		public ActionResult About()
 		{
 			ViewBag.Message = "Your application description page.";
@@ -37,12 +91,13 @@ namespace FloridaUCTF.Controllers
 		[HttpGet]
 		public ActionResult AddOffender()
 		{
-			ViewBag.States = db.States.Select(x =>
-				  new SelectListItem
-				  {
-					  Value = x.StateCode,
-					  Text = x.StateName
-				  });
+			// This block is following Marks example, but the ViewBag results look odd so trying something else
+			//ViewBag.States = db.States.Select(x =>
+			//	  new SelectListItem
+			//	  {
+			//		  Value = x.StateCode,
+			//		  Text = x.StateName
+			//	  });
 			return View();
 		}
 		[HttpPost]
@@ -141,6 +196,8 @@ namespace FloridaUCTF.Controllers
 		[ValidateAntiForgeryToken]
 		public ActionResult _AddCitation(Citation newCitation)
 		{
+			newCitation.ActionId = 1;
+			newCitation.RulingId = 1;
 			db.Citations.Add(newCitation);
 			db.SaveChanges();
 			return RedirectToAction("CaseCitationDetail", new { caseId = newCitation.CaseId });
@@ -212,22 +269,47 @@ namespace FloridaUCTF.Controllers
 		[HttpGet]
 		public ActionResult AllOffenderDetail(int offenderId)
 		{
-			ViewBag.Actions = db.Actions.Select(x =>
-				 new SelectListItem
-				 {
-					  Value = x.Id.ToString(),
-					  Text = x.Description
-				  });
-			ViewBag.Rulings = db.Rulings.Select(x =>
-				 new SelectListItem
-				 {
-					 Value = x.Id.ToString(),
-					 Text = x.Description
-				 });
+			// Load Select Options for the Actions drop down
+			//ViewBag.Actions = db.Actions.Select(x =>
+			//	 new SelectListItem
+			//	 {
+			//		  Value = x.Id.ToString(),
+			//		  Text = x.Description
+			//	  });
+			ViewBag.ActionsList = db.Actions.Select(x => new { x.Id, x.Description}).ToList();
+
+			// Load Select Options for the Rulings drop down
+			//ViewBag.Rulings = db.Rulings.Select(x =>
+			//	 new SelectListItem
+			//	 {
+			//		 Value = x.Id.ToString(),
+			//		 Text = x.Description
+			//	 });
+
+			ViewBag.RulingsList = db.Rulings.Select(x => new { x.Id, x.Description }).ToList();
+
 			//var currentCase = db.Cases.Include("Offender").First(f => f.Id == caseId);
 			var currentOffender = db.Offenders.First(f => f.Id == offenderId);
 			return View(currentOffender);
 		}
+
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public ActionResult SaveVerdictChanges (Offender currOffender)
+		{
+			foreach (var currCase in currOffender.Cases)
+			{
+				foreach (var citation in currCase.Citations)
+				{
+					//db.SaveChanges(citation);
+				}
+			}
+
+			return RedirectToAction("AllOffenderDetail.cshtml", new { offenderId = currOffender.Id });
+		}
+
+
+
 		protected override void Dispose(bool disposing)
 		{
 			if (disposing)

@@ -9,7 +9,7 @@
 @using (Html.BeginForm())
 {
 	@Html.AntiForgeryToken()
-
+	
 	<div class="form-horizontal">
 		<h2 class="text-center">Search Unlicensed Contractor Cases </h2>
 		<hr />
@@ -95,6 +95,10 @@
 		</div>
 
 	</div>
+	<div id="showSearchTable">
+
+	</div>
+	@Html.Partial("SearchResultsTable", Model)
 }
 
 

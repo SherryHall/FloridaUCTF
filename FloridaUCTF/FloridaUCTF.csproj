@@ -224,6 +224,10 @@
     <Compile Include="Migrations\201702042304080_SeedData.Designer.cs">
       <DependentUpon>201702042304080_SeedData.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201702051950465_AddBlankSeedRecords.cs" />
+    <Compile Include="Migrations\201702051950465_AddBlankSeedRecords.Designer.cs">
+      <DependentUpon>201702051950465_AddBlankSeedRecords.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Action.cs" />
@@ -326,6 +330,7 @@
     <Content Include="Views\Home\EditCase.cshtml" />
     <Content Include="Views\Home\DeleteCase.cshtml" />
     <Content Include="Views\Home\AllOffenderDetail.cshtml" />
+    <Content Include="Views\Home\SearchResultsTable.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -345,6 +350,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201702042304080_SeedData.resx">
       <DependentUpon>201702042304080_SeedData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702051950465_AddBlankSeedRecords.resx">
+      <DependentUpon>201702051950465_AddBlankSeedRecords.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

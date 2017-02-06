@@ -48,6 +48,6 @@ namespace FloridaUCTF.Models
 		[ForeignKey("OfficialContactId")]
 		public virtual ApplicationUser OfficialContact { get; set; }
 
-		public virtual ICollection<Citation> Citations { get; set; }
+		public virtual IList<Citation> Citations { get; set; }
 	}
 }

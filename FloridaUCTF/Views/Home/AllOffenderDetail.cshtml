@@ -9,17 +9,17 @@
 <div class="row">
 	<div class="col-md-10">
 		@Html.Partial("_OffenderSummary")
+	</div>
+	<div class="col-md-2">
+		@Html.ActionLink("Edit Offender", "Edit", new { id = Model.Id }) |
+		@Html.ActionLink("Back to Search", "Index")
 		<hr />
-		<div class="col-md-2">
-			@Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-			@Html.ActionLink("Back to List", "Index")
-		</div>
 	</div>
 </div>
 <div class="row">
 	@Html.ActionLink("Add a Case", "AddCase", new { offenderId = Model.Id }, new { @class = "btn btn-info" }) |
 </div>
-@foreach (var currCase in Model.Cases)
+@for (var c = 0; c < Model.Cases.Count; c++)
 {
 	<div class="row">
 		<hr />
@@ -28,35 +28,35 @@
 
 			<dl class="dl-horizontal">
 				<dt>
-					@Html.DisplayNameFor(model => currCase.CaseNumber)
+					@Html.DisplayNameFor(model => Model.Cases[c].CaseNumber)
 				</dt>
 
 				<dd>
-					@Html.DisplayFor(model => currCase.CaseNumber)
+					@Html.DisplayFor(model => Model.Cases[c].CaseNumber)
 				</dd>
 
 				<dt>
-					@Html.DisplayNameFor(model => currCase.CaseDate)
+					@Html.DisplayNameFor(model => Model.Cases[c].CaseDate)
 				</dt>
 
 				<dd>
-					@Html.DisplayFor(model => currCase.CaseDate)
+					@Html.DisplayFor(model => Model.Cases[c].CaseDate)
 				</dd>
 
 				<dt>
-					@Html.DisplayNameFor(model => currCase.CaseCity)
+					@Html.DisplayNameFor(model => Model.Cases[c].CaseCity)
 				</dt>
 
 				<dd>
-					@Html.DisplayFor(model => currCase.CaseCity)
+					@Html.DisplayFor(model => Model.Cases[c].CaseCity)
 				</dd>
 
 				<dt>
-					@Html.DisplayNameFor(model => currCase.CaseCounty)
+					@Html.DisplayNameFor(model => Model.Cases[c].CaseCounty)
 				</dt>
 
 				<dd>
-					@Html.DisplayFor(model => currCase.CaseCounty)
+					@Html.DisplayFor(model => Model.Cases[c].CaseCounty)
 				</dd>
 			</dl>
 		</div>
@@ -64,18 +64,18 @@
 			<div class="panel group-heading"> OFFENDER INFORMATION - WHEN CITED </div>
 			<dl class="dl-horizontal">
 				<dt>
-					@Html.DisplayNameFor(model => currCase.BusinessName)
+					@Html.DisplayNameFor(model => Model.Cases[c].BusinessName)
 				</dt>
 
 				<dd>
-					@Html.DisplayFor(model => currCase.BusinessName)
+					@Html.DisplayFor(model => Model.Cases[c].BusinessName)
 				</dd>
 				<dt>
-					@Html.DisplayNameFor(model => currCase.OffenderAddress.Address)
+					@Html.DisplayNameFor(model => Model.Cases[c].OffenderAddress.Address)
 				</dt>
 
 				<dd>
-					@Html.DisplayFor(model => currCase.OffenderAddress.Address)
+					@Html.DisplayFor(model => Model.Cases[c].OffenderAddress.Address)
 
 				</dd>
 				<dt>
@@ -83,7 +83,7 @@
 				</dt>
 
 				<dd>
-					@currCase.OffenderAddress.CityStateZip
+					@Model.Cases[c].OffenderAddress.CityStateZip
 				</dd>
 			</dl>
 		</div>
@@ -91,118 +91,137 @@
 			<div class="panel group-heading"> OFFICIAL CONTACT </div>
 			<dl class="dl-horizontal">
 				<dd>
-					@Html.DisplayFor(model => currCase.OfficialContact.FirstName) @Html.DisplayFor(model => currCase.OfficialContact.LastName)
+					@Html.DisplayFor(model => Model.Cases[c].OfficialContact.FirstName) @Html.DisplayFor(model => Model.Cases[c].OfficialContact.LastName)
 				</dd>
 
 				<dd>
-					@Html.DisplayFor(model => currCase.OfficialContact.Title)
+					@Html.DisplayFor(model => Model.Cases[c].OfficialContact.Title)
 
 				</dd>
 
 				<dd>
-					@currCase.OfficialContact.Email
+					@Model.Cases[c].OfficialContact.Email
 				</dd>
 				<dd>
-					@currCase.OfficialContact.PhoneNumber
+					@Model.Cases[c].OfficialContact.PhoneNumber
 				</dd>
 			</dl>
 		</div>
 		<div class="col-md-1 center-block">
 			<p>
-				@Html.ActionLink("Edit", "CaseCitationDetail", new { caseId = Model.Id }, new { @class = "btn-sm btn-info" }) |
+				<div class="row">
+					<div class="col-md-2">
+						@Html.ActionLink("Edit", "CaseCitationDetail", new { caseId = Model.Id }, new { @class = "btn-sm btn-info" })
+					</div>
+					<div class="col-md-offset-5 col-md-5">
+						<button class="btn btn-success" onclick="SaveVerdictChgs(@Model)">Save All Verdict Changes</button>
+					</div>
+				</div>
 			</p>
 		</div>
 	</div>
 
 	<div>
 
-		@foreach (var citation in currCase.Citations)
+		@for (var i = 0; i < Model.Cases[c].Citations.Count; i++)
 		{
+
 			<div class="citation-box">
 				<div class="well">
 					<div class="row">
 						<div class="col-md-1 case_cit_block">
-							@currCase.
-							<b>@Html.DisplayNameFor(model => citation.CitationNumber) </b>
-							@Html.DisplayFor(model => citation.CitationNumber)
+							<b>@Html.DisplayNameFor(model => Model.Cases[c].Citations[i].CitationNumber) </b>
+							@Html.DisplayFor(model => Model.Cases[c].Citations[i].CitationNumber)
 						</div>
-						<div class="col-md-7">
+						<div class="col-md-6">
 							<div class="row">
-								<b>@Html.DisplayNameFor(model => citation.StatuteOrdinance) &nbsp;</b>
-								@citation.StatuteOrdinance
+								<b>@Html.DisplayNameFor(model => Model.Cases[c].Citations[i].StatuteOrdinance) &nbsp;</b>
+								@Model.Cases[c].Citations[i].StatuteOrdinance
 							</div>
 							<div class="row">
-								<b>@Html.DisplayNameFor(model => citation.Description)</b>
+								<b>@Html.DisplayNameFor(model => Model.Cases[c].Citations[i].Description)</b>
 							</div>
 							<div class="row long-text">
-								@citation.Description
+								@Model.Cases[c].Citations[i].Description
 							</div>
 						</div>
 
-						<div class="col-md-4">
+						<div class="col-md-5">
 							<div class="row">
-								<div class="form-group">
-									@Html.LabelFor(model => citation.ActionId, "ActionId", htmlAttributes: new { @class = "control-label col-md-2" })
-									<div class="col-md-10">
-										@*@Html.DropDownList("ActionId", null, htmlAttributes: new { @class = "form-control" })*@
-										@Html.DropDownList("ActionId", null, htmlAttributes: new { @class = "form-control" })
-										
-										@Html.ValidationMessageFor(model => citation.ActionId, "", new { @class = "text-danger" })
-									</div>
-								</div>
-
-								<div class="form-group">
-									@Html.LabelFor(model => citation.RulingId, "RulingId", htmlAttributes: new { @class = "control-label col-md-2" })
-									<div class="col-md-10">
-										@Html.DropDownList("RulingId", null, htmlAttributes: new { @class = "form-control" })
-										@Html.ValidationMessageFor(model => citation.RulingId, "", new { @class = "text-danger" })
-									</div>
-								</div>
-							</div>
-
-							<div class="row">
-								<div class="form-group">
-									@Html.LabelFor(model => citation.Withheld, htmlAttributes: new { @class = "control-label col-md-2" })
-									<div class="col-md-10">
-										<div class="checkbox">
-											@Html.EditorFor(model => citation.Withheld)
-											@Html.ValidationMessageFor(model => citation.Withheld, "", new { @class = "text-danger" })
+								<div class="col-md-6">
+									<div class="form-group">
+										@Html.LabelFor(model => Model.Cases[c].Citations[i].ActionId, "ActionId", htmlAttributes: new { @class = "control-label col-md-2" })
+										<br />
+										<div class="col-md-10">
+											@Html.DropDownListFor(m => Model.Cases[c].Citations[i].ActionId, new SelectList(ViewBag.ActionsList, "Id", "Description"))
+											@Html.ValidationMessageFor(model => Model.Cases[c].Citations[i].ActionId, "", new { @class = "text-danger" })
 										</div>
 									</div>
 								</div>
-								<div class="form-group">
-									@Html.LabelFor(model => citation.Probation, htmlAttributes: new { @class = "control-label col-md-2" })
-									<div class="col-md-10">
-										<div class="checkbox">
-											@Html.EditorFor(model => citation.Probation)
-											@Html.ValidationMessageFor(model => citation.Probation, "", new { @class = "text-danger" })
-										</div>
-									</div>
-								</div>
-								<div class="form-group">
-									@Html.LabelFor(model => citation.PrivilegeRevoked, htmlAttributes: new { @class = "control-label col-md-2" })
-									<div class="col-md-10">
-										<div class="checkbox">
-											@Html.EditorFor(model => citation.PrivilegeRevoked)
-											@Html.ValidationMessageFor(model => citation.PrivilegeRevoked, "", new { @class = "text-danger" })
+								<div class="col-md-offset-2  col-md-4">
+									<div class="form-group">
+										@Html.LabelFor(model => Model.Cases[c].Citations[i].RulingId, "RulingId", htmlAttributes: new { @class = "control-label col-md-2" })
+										<div class="col-md-10">
+											@Html.DropDownListFor(m => Model.Cases[c].Citations[i].RulingId, new SelectList(ViewBag.RulingsList, "Id", "Description"))
+											@Html.ValidationMessageFor(model => Model.Cases[c].Citations[i].RulingId, "", new { @class = "text-danger" })
 										</div>
 									</div>
 								</div>
 							</div>
 
 							<div class="row">
-								<div class="form-group">
-									@Html.LabelFor(model => citation.FineAmount, htmlAttributes: new { @class = "control-label col-md-2" })
-									<div class="col-md-10">
-										@Html.EditorFor(model => citation.FineAmount, new { htmlAttributes = new { @class = "form-control" } })
-										@Html.ValidationMessageFor(model => citation.FineAmount, "", new { @class = "text-danger" })
+								<div class="col-md-4 checkbox-col">
+									<div class="form-group">
+										@Html.LabelFor(model => Model.Cases[c].Citations[i].Withheld, htmlAttributes: new { @class = "control-label col-md-9 checkbox-label" })
+										<div class="col-md-3">
+											<div class="checkbox">
+												@Html.CheckBoxFor(model => Model.Cases[c].Citations[i].Withheld)
+												@Html.ValidationMessageFor(model => Model.Cases[c].Citations[i].Withheld, "", new { @class = "text-danger" })
+											</div>
+										</div>
 									</div>
 								</div>
-								<div class="form-group">
-									@Html.LabelFor(model => citation.RestitutionAmount, htmlAttributes: new { @class = "control-label col-md-2" })
-									<div class="col-md-10">
-										@Html.EditorFor(model => citation.RestitutionAmount, new { htmlAttributes = new { @class = "form-control" } })
-										@Html.ValidationMessageFor(model => citation.RestitutionAmount, "", new { @class = "text-danger" })
+								<div class="col-md-4 checkbox-col">
+									<div class="form-group">
+										@Html.LabelFor(model => Model.Cases[c].Citations[i].Probation, htmlAttributes: new { @class = "control-label col-md-9 checkbox-label" })
+										<div class="col-md-3">
+											<div class="checkbox">
+												@Html.CheckBoxFor(model => Model.Cases[c].Citations[i].Probation)
+												@Html.ValidationMessageFor(model => Model.Cases[c].Citations[i].Probation, "", new { @class = "text-danger" })
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-4 checkbox-col">
+									<div class="form-group">
+										@Html.LabelFor(model => Model.Cases[c].Citations[i].PrivilegeRevoked, htmlAttributes: new { @class = "control-label col-md-9 checkbox-label" })
+										<div class="col-md-3">
+											<div class="checkbox">
+												@Html.CheckBoxFor(model => Model.Cases[c].Citations[i].PrivilegeRevoked)
+												@Html.ValidationMessageFor(model => Model.Cases[c].Citations[i].PrivilegeRevoked, "", new { @class = "text-danger" })
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group">
+										@Html.LabelFor(model => Model.Cases[c].Citations[i].FineAmount, htmlAttributes: new { @class = "control-label col-md-5" })
+										<div class="col-md-7">
+											@Html.EditorFor(model => Model.Cases[c].Citations[i].FineAmount, new { htmlAttributes = new { @class = "form-control" } })
+											@Html.ValidationMessageFor(model => Model.Cases[c].Citations[i].FineAmount, "", new { @class = "text-danger" })
+										</div>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										@Html.LabelFor(model => Model.Cases[c].Citations[i].RestitutionAmount, htmlAttributes: new { @class = "control-label col-md-5" })
+										<div class="col-md-7">
+											@Html.EditorFor(model => Model.Cases[c].Citations[i].RestitutionAmount, new { htmlAttributes = new { @class = "form-control" } })
+											@Html.ValidationMessageFor(model => Model.Cases[c].Citations[i].RestitutionAmount, "", new { @class = "text-danger" })
+										</div>
 									</div>
 								</div>
 							</div>
@@ -215,34 +234,15 @@
 	</div>
 }
 <script>
-	var ShowAddCitationForm = function (caseId) {
+	var SaveVerdictChanges = function (currOffender) {
 		$.ajax({
-			url: "/home/_AddCitation/?caseId=" + caseId,
-			method: "GET",
-			dataType: "html",
-			success: function (partial) {
-				$("#ManageCitationForm").html(partial);
-			}
+			url: "/home/SaveVerdictChngs/?offenderId=" + offenderId,
+			method: "POST",
+			data: ,
+			//success: function (partial) {
+			//	$("#ManageCitationForm").html(partial);
+			//}
 		})
 	}
-	var ShowEditCitationForm = function (citationId) {
-		$.ajax({
-			url: "/home/_EditCitation/?citationId=" + citationId,
-			method: "GET",
-			dataType: "html",
-			success: function (partial) {
-				$("#ManageCitationForm").html(partial);
-			}
-		})
-	}
-	var ShowDeleteCitationForm = function (citationId) {
-		$.ajax({
-			url: "/home/_DeleteCitation/?citationId=" + citationId,
-			method: "GET",
-			dataType: "html",
-			success: function (partial) {
-				$("#ManageCitationForm").html(partial);
-			}
-		})
-	}
+
 </script>

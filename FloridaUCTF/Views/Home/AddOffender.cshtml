@@ -1,4 +1,5 @@
-﻿@model FloridaUCTF.Models.AddOffenderViewModel
+﻿@using System.Web.Mvc.Html
+@model FloridaUCTF.Models.AddOffenderViewModel
 
 @{
     ViewBag.Title = "Add Offender";
@@ -57,6 +58,7 @@
 			</div>
 		</div>
 
+		@*  ORIGINAL ENTRY FIELD FOR STATE.  SAVING UNTIL GET DROP DOWN TO WORK THEN WILL DELETE*@
 		<div class="form-group">
 			@Html.LabelFor(model => model.OffenderAddress.State, htmlAttributes: new { @class = "control-label col-md-2" })
 			<div class="col-md-10">
@@ -64,6 +66,15 @@
 				@Html.ValidationMessageFor(model => model.OffenderAddress.State, "", new { @class = "text-danger" })
 			</div>
 		</div>
+
+		@*  NEW DROPDOWN FOR STATE.  DOESN'T WORK YET, SO JUST ENTERING TILL TIME TO FIX*@
+		@*<div class="form-group">
+			@Html.LabelFor(model => model.OffenderAddress.State, htmlAttributes: new { @class = "control-label col-md-2" })
+			<div class="col-md-10">
+				@Html.DropDownListFor(m => m.OffenderAddress.State, ViewBag.States)
+				@Html.ValidationMessageFor(model => model.OffenderAddress.State, "", new { @class = "text-danger" })
+			</div>
+		</div>*@
 
 		<div class="form-group">
 			@Html.LabelFor(model => model.OffenderAddress.Zip, htmlAttributes: new { @class = "control-label col-md-2" })

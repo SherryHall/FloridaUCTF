@@ -99,7 +99,12 @@
 </div>
 @if (Model.Citations.Count == 0 ||  Model.Citations == null)
 {
-	<script type='text/javascript'>ShowAddCitationForm(@Model.Id);</script>
+	//if there are no cases for this offender, call the fundction to add a case
+	<script type="text/javascript">
+		$(document).ready(function () {
+		ShowAddCitationForm(@Model.Id);
+	});
+	</script>
 }
 else
 {
@@ -113,7 +118,7 @@ else
 						<b>@Html.DisplayNameFor(model => citation.CitationNumber) </b>
 						@Html.DisplayFor(model => citation.CitationNumber)
 					</div>
-					<div class="col-md-9">
+					<div class="col-md-10">
 						<div class="row">
 							<b>@Html.DisplayNameFor(model => citation.StatuteOrdinance) &nbsp;</b>
 							@citation.StatuteOrdinance
@@ -125,7 +130,7 @@ else
 							@citation.Description
 						</div>
 					</div>
-					<div class="col-md-2">
+					<div class="col-md-1">
 						<button class="btn btn-info" onclick="ShowEditCitationForm(@citation.Id)">Edit</button>
 						<button class="btn btn-link btn-link-danger" onclick="ShowDeleteCitationForm(@citation.Id)">Delete</button>
 					</div>

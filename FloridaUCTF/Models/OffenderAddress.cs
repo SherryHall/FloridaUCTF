@@ -22,7 +22,7 @@ namespace FloridaUCTF.Models
 
 		[Required]
 		[StringLength(2)]
-		public string State { get; set; }
+		public string State { get; set; } = "FL";
 
 		[Required]
 		[StringLength(10)]
