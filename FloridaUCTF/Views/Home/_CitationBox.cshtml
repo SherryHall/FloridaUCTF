@@ -1,0 +1,111 @@
+﻿@model FloridaUCTF.Models.Citation
+
+<div class="citation-box">
+	<div>
+		@Html.Hidden("citation-id", Model.Id, new { @class = "citation-id" })
+	</div>
+
+	<div class="well">
+		<div class="row">
+			<div class="col-md-1 case_cit_block">
+				<b>@Html.DisplayNameFor(model => Model.CitationNumber) </b>
+				@Html.DisplayFor(model => Model.CitationNumber)
+			</div>
+			<div class="col-md-6">
+				<div class="row">
+					<b>@Html.DisplayNameFor(model => Model.StatuteOrdinance) &nbsp;</b>
+					@Model.StatuteOrdinance
+				</div>
+				<div class="row">
+					<b>@Html.DisplayNameFor(model => Model.Description)</b>
+				</div>
+				<div class="row long-text">
+					@Model.Description
+				</div>
+			</div>
+
+
+			<div class="col-md-5">
+				<div class="row">
+					<div class="col-md-6">
+						<div class="form-group">
+							@Html.LabelFor(model => Model.ActionId, "ActionId", htmlAttributes: new { @class = "control-label col-md-2" })
+							<br />
+							<div class="col-md-10">
+								@Html.DropDownListFor(m => Model.ActionId, new SelectList(ViewBag.ActionsList, "Id", "Description"), new { @class = "cite-action" })
+								@Html.ValidationMessageFor(model => Model.ActionId, "", new { @class = "text-danger" })
+							</div>
+						</div>
+					</div>
+					<div class="col-md-offset-2  col-md-4">
+						<div class="form-group">
+							@Html.LabelFor(model => Model.RulingId, "RulingId", htmlAttributes: new { @class = "control-label col-md-2" })
+							<div class="col-md-10">
+								@Html.DropDownListFor(m => Model.RulingId, new SelectList(ViewBag.RulingsList, "Id", "Description"), new { @class = "cite-ruling" })
+								@Html.ValidationMessageFor(model => Model.RulingId, "", new { @class = "text-danger" })
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-md-4 checkbox-col">
+						<div class="form-group">
+							@Html.LabelFor(model => Model.Withheld, htmlAttributes: new { @class = "control-label col-md-9 checkbox-label" })
+							<div class="col-md-3">
+								<div class="checkbox">
+									@Html.CheckBoxFor(model => Model.Withheld, new { @class = "cite-withheld" })
+									@Html.ValidationMessageFor(model => Model.Withheld, "", new { @class = "text-danger" })
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-4 checkbox-col">
+						<div class="form-group">
+							@Html.LabelFor(model => Model.Probation, htmlAttributes: new { @class = "control-label col-md-9 checkbox-label" })
+							<div class="col-md-3">
+								<div class="checkbox">
+									@Html.CheckBoxFor(model => Model.Probation, new { @class = "cite-probabion" })
+									@Html.ValidationMessageFor(model => Model.Probation, "", new { @class = "text-danger" })
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-4 checkbox-col">
+						<div class="form-group">
+							@Html.LabelFor(model => Model.PrivilegeRevoked, htmlAttributes: new { @class = "control-label col-md-9 checkbox-label" })
+							<div class="col-md-3">
+								<div class="checkbox">
+									@Html.CheckBoxFor(model => Model.PrivilegeRevoked, new { @class = "cite-revoked" })
+									@Html.ValidationMessageFor(model => Model.PrivilegeRevoked, "", new { @class = "text-danger" })
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-md-6">
+						<div class="form-group">
+							@Html.LabelFor(model => Model.FineAmount, htmlAttributes: new { @class = "control-label col-md-5" })
+							<div class="col-md-7">
+								@Html.EditorFor(model => Model.FineAmount, new { htmlAttributes = new { @class = "form-control cite-fine" } })
+								@Html.ValidationMessageFor(model => Model.FineAmount, "", new { @class = "text-danger" })
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group">
+							@Html.LabelFor(model => Model.RestitutionAmount, htmlAttributes: new { @class = "control-label col-md-5" })
+							<div class="col-md-7">
+								@Html.EditorFor(model => Model.RestitutionAmount, new { htmlAttributes = new { @class = "form-control cite-restitution" } })
+								@Html.ValidationMessageFor(model => Model.RestitutionAmount, "", new { @class = "text-danger" })
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div>

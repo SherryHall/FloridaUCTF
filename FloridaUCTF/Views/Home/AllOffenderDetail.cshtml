@@ -5,7 +5,7 @@
 }
 @Html.AntiForgeryToken()
 
-<h2>AllOffenderDetail</h2>
+<h2>All Cases for This Offender</h2>
 
 <div class="row">
 	<div class="col-md-10">
@@ -117,126 +117,16 @@
 		</div>
 		<div class="col-md-1 center-block">
 			<p>
-						@Html.ActionLink("Edit Case", "CaseCitationDetail", new { caseId = Model.Id }, new { @class = "btn btn-info" })
+						@Html.ActionLink("Edit Case", "CaseCitationDetail", new { caseId = Model.Cases[c].Id }, new { @class = "btn btn-info" })
 			</p>
 		</div>
 	</div>
 
 	<div>
 		@*  Loop Through all of the Citation for this Offender Cases  (used For instead of Foreach due to dropdown probs)  *@
-		@for (var i = 0; i < Model.Cases[c].Citations.Count; i++)
+		@foreach (var citation in Model.Cases[c].Citations)
 		{
-
-			<div class="citation-box">
-				<div>
-					@Html.Hidden("citation-id", Model.Cases[c].Citations[i].Id, new { @class = "citation-id" })
-				</div>
-
-				<div class="well">
-					<div class="row">
-						<div class="col-md-1 case_cit_block">
-							<b>@Html.DisplayNameFor(model => Model.Cases[c].Citations[i].CitationNumber) </b>
-							@Html.DisplayFor(model => Model.Cases[c].Citations[i].CitationNumber)
-						</div>
-						<div class="col-md-6">
-							<div class="row">
-								<b>@Html.DisplayNameFor(model => Model.Cases[c].Citations[i].StatuteOrdinance) &nbsp;</b>
-								@Model.Cases[c].Citations[i].StatuteOrdinance
-							</div>
-							<div class="row">
-								<b>@Html.DisplayNameFor(model => Model.Cases[c].Citations[i].Description)</b>
-							</div>
-							<div class="row long-text">
-								@Model.Cases[c].Citations[i].Description
-							</div>
-						</div>
-
-
-						<div class="col-md-5">
-							<div class="row">
-								<div class="col-md-6">
-									<div class="form-group">
-										@Html.LabelFor(model => Model.Cases[c].Citations[i].ActionId, "ActionId", htmlAttributes: new { @class = "control-label col-md-2" })
-										<br />
-										<div class="col-md-10">
-											@Html.DropDownListFor(m => Model.Cases[c].Citations[i].ActionId, new SelectList(ViewBag.ActionsList, "Id", "Description"), new { @class = "cite-action" })
-											@Html.ValidationMessageFor(model => Model.Cases[c].Citations[i].ActionId, "", new { @class = "text-danger" })
-										</div>
-									</div>
-								</div>
-								<div class="col-md-offset-2  col-md-4">
-									<div class="form-group">
-										@Html.LabelFor(model => Model.Cases[c].Citations[i].RulingId, "RulingId", htmlAttributes: new { @class = "control-label col-md-2" })
-										<div class="col-md-10">
-											@Html.DropDownListFor(m => Model.Cases[c].Citations[i].RulingId, new SelectList(ViewBag.RulingsList, "Id", "Description"), new { @class = "cite-ruling" })
-											@Html.ValidationMessageFor(model => Model.Cases[c].Citations[i].RulingId, "", new { @class = "text-danger" })
-										</div>
-									</div>
-								</div>
-							</div>
-
-							<div class="row">
-								<div class="col-md-4 checkbox-col">
-									<div class="form-group">
-										@Html.LabelFor(model => Model.Cases[c].Citations[i].Withheld, htmlAttributes: new { @class = "control-label col-md-9 checkbox-label" })
-										<div class="col-md-3">
-											<div class="checkbox">
-												@Html.CheckBoxFor(model => Model.Cases[c].Citations[i].Withheld, new { @class = "cite-withheld" })
-												@Html.ValidationMessageFor(model => Model.Cases[c].Citations[i].Withheld, "", new { @class = "text-danger" })
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="col-md-4 checkbox-col">
-									<div class="form-group">
-										@Html.LabelFor(model => Model.Cases[c].Citations[i].Probation, htmlAttributes: new { @class = "control-label col-md-9 checkbox-label" })
-										<div class="col-md-3">
-											<div class="checkbox">
-												@Html.CheckBoxFor(model => Model.Cases[c].Citations[i].Probation, new { @class = "cite-probabion" })
-												@Html.ValidationMessageFor(model => Model.Cases[c].Citations[i].Probation, "", new { @class = "text-danger" })
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="col-md-4 checkbox-col">
-									<div class="form-group">
-										@Html.LabelFor(model => Model.Cases[c].Citations[i].PrivilegeRevoked, htmlAttributes: new { @class = "control-label col-md-9 checkbox-label" })
-										<div class="col-md-3">
-											<div class="checkbox">
-												@Html.CheckBoxFor(model => Model.Cases[c].Citations[i].PrivilegeRevoked, new { @class = "cite-revoked" })
-												@Html.ValidationMessageFor(model => Model.Cases[c].Citations[i].PrivilegeRevoked, "", new { @class = "text-danger" })
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-
-							<div class="row">
-								<div class="col-md-6">
-									<div class="form-group">
-										@Html.LabelFor(model => Model.Cases[c].Citations[i].FineAmount, htmlAttributes: new { @class = "control-label col-md-5" })
-										<div class="col-md-7">
-											@Html.EditorFor(model => Model.Cases[c].Citations[i].FineAmount, new { htmlAttributes = new { @class = "form-control cite-fine" } })
-											@Html.ValidationMessageFor(model => Model.Cases[c].Citations[i].FineAmount, "", new { @class = "text-danger" })
-										</div>
-									</div>
-								</div>
-								<div class="col-md-6">
-									<div class="form-group">
-										@Html.LabelFor(model => Model.Cases[c].Citations[i].RestitutionAmount, htmlAttributes: new { @class = "control-label col-md-5" })
-										<div class="col-md-7">
-											@Html.EditorFor(model => Model.Cases[c].Citations[i].RestitutionAmount, new { htmlAttributes = new { @class = "form-control cite-restitution" } })
-											@Html.ValidationMessageFor(model => Model.Cases[c].Citations[i].RestitutionAmount, "", new { @class = "text-danger" })
-										</div>
-									</div>
-								</div>
-							</div>
-
-						</div>
-					</div>
-				</div>
-			</div>
-
+			@Html.Partial("_CitationBox", citation)
 				}
 	</div>
 }
@@ -262,9 +152,9 @@
                     	CiteId: citationBox.find("input.citation-id").val(),
                     	Action : citationBox.find("select.cite-action").val(),
                     	Ruling: citationBox.find("select.cite-ruling").val(),
-                    	Withheld: citationBox.find("select.cite-withheld").val(),
-                    	Probation: citationBox.find("select.cite-probation").val(),
-                		Revoked: citationBox.find("select.cite-revoked").val(),
+                    	Withheld: citationBox.find("input.cite-withheld").val(),
+                    	Probation: citationBox.find("input.cite-probation").val(),
+                		Revoked: citationBox.find("input.cite-revoked").val(),
                 		Fine: citationBox.find("input.cite-fine").val(),
 						Restitution: citationBox.find("input.cite-restitution").val()
                     });

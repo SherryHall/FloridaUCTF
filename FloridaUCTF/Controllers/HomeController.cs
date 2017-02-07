@@ -10,18 +10,18 @@ using System.Web.Mvc;
 
 namespace FloridaUCTF.Controllers
 {
+	[Authorize]
 	public class HomeController : Controller
 	{
 		private ApplicationDbContext db = new ApplicationDbContext();
 
 		public ActionResult Index()
 		{
-			var searchRequest = new SearchViewModel();
-			return View(searchRequest);
+			return View();
 		}
 
 		[HttpPost]
-		public ActionResult Index(SearchViewModel searchRequest)
+		public ActionResult Index (SearchViewModel searchRequest)
 		{
 			var caseParameters = (searchRequest.BusinessName + searchRequest.CaseCity + searchRequest.CaseCounty);
 			var caseList = new List<int>();
@@ -68,8 +68,8 @@ namespace FloridaUCTF.Controllers
 				searchQuery = searchQuery.Where(o => o.DriveLicense.StartsWith(searchRequest.DriveLicense));
 			}
 
-			var searchResults = searchQuery.ToList();
-			return PartialView(searchResults);
+			searchRequest.Results = searchQuery.Select(s => new SearchResultsViewModel { Id = s.Id, LastName = s.LastName,  FirstName = s.FirstName, FirstAKA = s.FirstAKA, LastAKA = s.LastAKA, DriveLicense = s.DriveLicense}).ToList();
+			return View(searchRequest);
 		}
 
 
@@ -87,6 +87,9 @@ namespace FloridaUCTF.Controllers
 			return View();
 		}
 
+		//public ActionResult SearchResultsTable(SearchViewModel searchRequest)
+		//{
+		//}
 		[HttpGet]
 		public ActionResult AddOffender()
 		{
@@ -128,7 +131,6 @@ namespace FloridaUCTF.Controllers
 			var newCase = new Case();
 			newCase.Offender = db.Offenders.Find(offenderId);
 			newCase.OffenderAddress = db.OffenderAddresses.Find(currentOffender.DefaultAddressId);
-			newCase.OfficialContact = db.Users.Find(HttpContext.User.Identity.GetUserId());
 			return View(newCase);
 		}
 
@@ -136,6 +138,7 @@ namespace FloridaUCTF.Controllers
 		[ValidateAntiForgeryToken]
 		public ActionResult AddCase(Case newCase)
 		{
+			newCase.OfficialContact = db.Users.Find(HttpContext.User.Identity.GetUserId());
 			db.Cases.Add(newCase);
 			db.SaveChanges();
 			return RedirectToAction("CaseCitationDetail", new { caseId = newCase.Id });

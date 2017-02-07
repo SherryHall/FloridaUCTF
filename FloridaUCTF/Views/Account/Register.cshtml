@@ -3,8 +3,10 @@
 	ViewBag.Title = "Register";
 }
 
-<h2>@ViewBag.Title.</h2>
+<h3>@ViewBag.Title.</h3>
 
+<p> Register for access to the database containing information on contractors that have been caught in the State of Florida working without a license.</p>
+<p class="emphasize"> All fields are required except phone extension</p>
 @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
 	@Html.AntiForgeryToken()
@@ -13,9 +15,9 @@
 		<div class="col-md-6">
 			<p class="group-heading"> Login Information </p>
 			<div class="form-group">
-				<div class="text-center"> (Your email address will be your user name)</div>
 				@Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
 				<div class="col-md-10">
+				<div class="emphasize"> (Your email address will be your user name)</div>
 					@Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
 				</div>
 			</div>
@@ -31,7 +33,9 @@
 					@Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
 				</div>
 			</div>
+			<br />
 		</div>
+		
 		<div class="col-md-6">
 			<p class="group-heading"> Personal Information </p>
 			<div class="form-group">
@@ -58,6 +62,7 @@
 					@Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control" })
 				</div>
 			</div>
+			<br />
 		</div>
 	</div>
 	<p class="group-heading"> Place of Business </p>
@@ -104,7 +109,7 @@
 			<div class="form-group">
 				@Html.LabelFor(m => m.UserInfo.WorkExtension, new { @class = "col-md-3 control-label" })
 				<div class="col-md-9">
-					@Html.TextBoxFor(m => m.UserInfo.WorkExtension, new { @class = "form-control" })
+					@Html.TextBoxFor(m => m.UserInfo.WorkExtension, new { @class = "form-control", placeholder = "optional" })
 				</div>
 			</div>
 		</div>

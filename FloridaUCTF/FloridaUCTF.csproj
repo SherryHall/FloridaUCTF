@@ -331,6 +331,9 @@
     <Content Include="Views\Home\DeleteCase.cshtml" />
     <Content Include="Views\Home\AllOffenderDetail.cshtml" />
     <Content Include="Views\Home\SearchResultsTable.cshtml" />
+    <Content Include="Views\Home\_CitationBox.cshtml" />
+    <Content Include="Views\Home\_DeleteCitation.cshtml" />
+    <Content Include="Views\Home\_EditCitation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

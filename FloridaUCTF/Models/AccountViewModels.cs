@@ -71,7 +71,7 @@ namespace FloridaUCTF.Models
 
 		[Required]
         [Phone]
-        [Display(Name = "Phone Number")]
+        [Display(Name = "Cell Phone")]
         public string PhoneNumber { get; set; }
 
         [Required]

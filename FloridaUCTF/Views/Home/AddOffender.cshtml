@@ -5,15 +5,13 @@
     ViewBag.Title = "Add Offender";
 }
 
-<h2>Add Offender</h2>
-
 
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>Offender</h4>
+<h2>Add Offender</h2>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 		<div class="panel group-heading"> OFFENDER NAME </div>
@@ -40,7 +38,7 @@
                 @Html.ValidationMessageFor(model => model.Offender.MiddleName, "", new { @class = "text-danger" })
             </div>
         </div>
-
+		<br />
 		<div class="panel group-heading"> CURRENT HOME ADDRESS </div>
 		<div class="form-group">
 			@Html.LabelFor(model => model.OffenderAddress.Address, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -83,7 +81,6 @@
 				@Html.ValidationMessageFor(model => model.OffenderAddress.Zip, "", new { @class = "text-danger" })
 			</div>
 		</div>
-
 		<div class="panel group-heading">  </div>
         <div class="form-group">
             @Html.LabelFor(model => model.Offender.DriveLicense, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -100,6 +97,7 @@
                 @Html.ValidationMessageFor(model => model.Offender.DriveLicenseState, "", new { @class = "text-danger" })
             </div>
         </div>
+			<br />
 
 		<div class="panel group-heading"> OFFENDER NICKNAMES </div>
         <div class="form-group">

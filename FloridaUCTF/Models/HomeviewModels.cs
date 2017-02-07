@@ -67,6 +67,8 @@ namespace FloridaUCTF.Models
 		[Display(Name = "County")]
 		public string CaseCounty { get; set; }
 
+		public List<SearchResultsViewModel>  Results { get; set; }
+
 	}
 
 	public class SearchResultsViewModel

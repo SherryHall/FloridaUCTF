@@ -1,8 +1,5 @@
 ﻿@model IEnumerable<FloridaUCTF.Models.SearchResultsViewModel>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
         <th>
@@ -20,9 +17,6 @@
         <th>
             @Html.DisplayNameFor(model => model.FirstAKA)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DriveLicense
-        </th>
  
         <th></th>
     </tr>
@@ -30,15 +24,13 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.LastName)
-			<a href="@Url.Action("AllOffenderDetail", "Home", new { Id=item.Id})">@Html.DisplayFor(modelItem => item.LastName)</a>
+            @*@Html.DisplayFor(modelItem => item.LastName)*@
+			<a href="@Url.Action("AllOffenderDetail", "Home", new { offenderId=item.Id})">@Html.DisplayFor(modelItem => item.LastName)</a>
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.FirstName)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DriveLicense)
-        </td>
+ 
         <td>
             @Html.DisplayFor(modelItem => item.LastAKA)
         </td>
@@ -49,12 +41,7 @@
             @Html.DisplayFor(modelItem => item.DriveLicense)
         </td>
 
-        <td>
-  
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
- 
-        </td>
-    </tr>
+     </tr>
 }
 
 </table>
