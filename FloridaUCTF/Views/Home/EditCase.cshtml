@@ -4,7 +4,8 @@
     ViewBag.Title = "Edit Case " + Model.CaseNumber;
 }
 
-<h2>Edit Case for @Model.Offender.FirstName @Model.Offender.LastName  </h2>
+<h3>Edit Case 
+ @Model.Offender.FirstName @Model.Offender.LastName  </h3>
 
 
 @using (Html.BeginForm())
@@ -16,7 +17,6 @@
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.Id)
 
-		<div class="col-md-12">
 			<div class="panel group-heading"> CASE INFORMATION </div>
 			<div class="form-group">
 				@Html.LabelFor(model => model.CaseNumber, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -47,7 +47,6 @@
 					@Html.EditorFor(model => model.CaseCounty, new { htmlAttributes = new { @class = "form-control" } })
 					@Html.ValidationMessageFor(model => model.CaseCounty, "", new { @class = "text-danger" })
 				</div>
-			</div>
 		</div>
 		<div class="panel group-heading"> OFFENDER - WHEN CITED </div>
 		<div class="form-group">
@@ -97,7 +96,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to Details", "CaseCitationDetail", new { caseId = @Model.Id })
 </div>
 
 @section Scripts {

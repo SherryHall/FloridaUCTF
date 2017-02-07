@@ -5,13 +5,14 @@
 }
 
 <div class="row">
-	<div class="col-md-12">
-		<h2>Case Details for -  @Model.Offender.FirstName  @Model.Offender.LastName  </h2>
-	</div>
-	</div>
+	<h3>@Model.Offender.FirstName  @Model.Offender.LastName  </h3>
+</div>
 <div class="row">
-	<div class="col-md-12 text-center">
-		@Html.ActionLink("Finished", "AllOffenderDetail", "Home",new { offenderId = Model.OffenderId}, new { @class = "btn btn-success" })
+	<h4> Case # @Model.CaseNumber</h4>
+</div>
+<div class="row">
+	<div class="col-md-12">
+		@Html.ActionLink("Finished", "AllOffenderDetail", "Home", new { offenderId = Model.OffenderId }, new { @class = "btn btn-success" })
 	</div>
 </div>
 
@@ -83,28 +84,30 @@
 	</div>
 	<div class="col-md-3 center-block">
 		<p>
-			@Html.ActionLink("Edit", "EditCase", new { caseId = Model.Id }, new { @class = "btn-sm btn-info" }) |
-			@Html.ActionLink("Add New Offender", "AddOffender", new { @class= "btn-link btn-link-danger" })
+			@Html.ActionLink("Edit Case", "EditCase", new { caseId = Model.Id }, new { @class = "btn btn-info" }) |
+
 		</p>
 	</div>
 </div>
 <div>
-
-<div class="row">
-	<button class="btn btn-primary" onclick="ShowAddCitationForm(@Model.Id)">Add Citation</button>
-</div>
+	<div class="row">
+		<div class="col-md-12">
+			<button class="btn btn-primary" onclick="ShowAddCitationForm(@Model.Id)">Add Citation</button>
+		</div>
+	</div>
+			<br />
 
 	<div id="ManageCitationForm"></div>
 
 </div>
-@if (Model.Citations.Count == 0 ||  Model.Citations == null)
+@if (Model.Citations.Count == 0 || Model.Citations == null)
 {
 	//if there are no cases for this offender, call the fundction to add a case
 	<script type="text/javascript">
 		$(document).ready(function () {
-		ShowAddCitationForm(@Model.Id);
-	});
-</script>
+			ShowAddCitationForm(@Model.Id);
+		});
+	</script>
 }
 else
 {
@@ -114,7 +117,7 @@ else
 			<div class="well">
 				<div class="row">
 					<div class="col-md-1 case_cit_block">
-						
+
 						<b>@Html.DisplayNameFor(model => citation.CitationNumber) </b>
 						@Html.DisplayFor(model => citation.CitationNumber)
 					</div>
@@ -125,8 +128,8 @@ else
 						</div>
 						<div class="row">
 							<b>@Html.DisplayNameFor(model => citation.Description)</b>
-</div>
-						<div class="row long-text">
+						</div>
+						<div class="row">
 							@citation.Description
 						</div>
 					</div>
@@ -139,35 +142,35 @@ else
 		</div>
 	}
 }
-	<script>
-		var ShowAddCitationForm = function (caseId) {
-			$.ajax({
-				url: "/home/_AddCitation/?caseId=" + caseId,
-				method: "GET",
-				dataType: "html",
-				success: function (partial) {
-					$("#ManageCitationForm").html(partial);
-				}
-			})
-		}
-		var ShowEditCitationForm = function (citationId) {
-			$.ajax({
-				url: "/home/_EditCitation/?citationId=" + citationId,
-				method: "GET",
-				dataType: "html",
-				success: function (partial) {
-					$("#ManageCitationForm").html(partial);
-				}
-			})
-		}
-		var ShowDeleteCitationForm = function (citationId) {
-			$.ajax({
-				url: "/home/_DeleteCitation/?citationId=" + citationId,
-				method: "GET",
-				dataType: "html",
-				success: function (partial) {
-					$("#ManageCitationForm").html(partial);
-				}
-			})
-		}
-	</script>
+<script>
+	var ShowAddCitationForm = function (caseId) {
+		$.ajax({
+			url: "/home/_AddCitation/?caseId=" + caseId,
+			method: "GET",
+			dataType: "html",
+			success: function (partial) {
+				$("#ManageCitationForm").html(partial);
+			}
+		})
+	}
+	var ShowEditCitationForm = function (citationId) {
+		$.ajax({
+			url: "/home/_EditCitation/?citationId=" + citationId,
+			method: "GET",
+			dataType: "html",
+			success: function (partial) {
+				$("#ManageCitationForm").html(partial);
+			}
+		})
+	}
+	var ShowDeleteCitationForm = function (citationId) {
+		$.ajax({
+			url: "/home/_DeleteCitation/?citationId=" + citationId,
+			method: "GET",
+			dataType: "html",
+			success: function (partial) {
+				$("#ManageCitationForm").html(partial);
+			}
+		})
+	}
+</script>

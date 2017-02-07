@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<FloridaUCTF.Models.SearchResultsViewModel>
 
-<table class="table">
+<table class="table table-bordered table-striped table-responsive">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.LastName)
@@ -9,16 +9,15 @@
             @Html.DisplayNameFor(model => model.FirstName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.DriveLicense)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LastAKA)
+            AKA: @Html.DisplayNameFor(model => model.LastAKA)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.FirstAKA)
         </th>
+        <th>
+            AKA: @Html.DisplayNameFor(model => model.DriveLicense)
+        </th>
  
-        <th></th>
     </tr>
 
 @foreach (var item in Model) {

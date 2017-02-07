@@ -1,6 +1,8 @@
 ﻿body {
 	padding-top: 50px;
 	padding-bottom: 20px;
+		font-size: 16px;
+
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -12,9 +14,11 @@
 /* Override the default bootstrap behavior where horizontal description lists 
    will truncate terms that are too long to fit in the left column 
 */
+
 .dl-horizontal dt {
 	white-space: normal;
 }
+
 
 /* Set width on the form input elements since they're 100% wide by default */
 input,
@@ -28,6 +32,25 @@ textarea {
 .btn-link-danger {
 	color : red;
 }
+.contact-info-box div{
+	padding-left: 50px;
+}
+.dl-caseinfo dt{
+	width : 75px;
+}
+.dl-caseinfo dd{
+	margin-left : 85px;
+}
+/*.case-fix-top {
+	height: 142px;
+	top : 50px;
+	right : 0;
+	position : fixed;
+}
+.case-scroll-part {
+	top: 192px;
+}*/
+
 .group-heading {
 	background-color: #e6e6fe;
 	font-family: Lucida Sans Unicode;
@@ -37,6 +60,12 @@ textarea {
 
 .citation_block > div:nth-child(odd) {
     background: #f9f9f9;
+}
+.case-panel {
+	border : 2px solid lightgray; 
+	border-radius : 20px;
+	margin : 15px;
+	padding : 5px;
 }
 .cit_num_box {
 	border-right: 2px lightblue dotted;

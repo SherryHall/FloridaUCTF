@@ -5,177 +5,184 @@
 }
 @Html.AntiForgeryToken()
 
-<h2>All Cases for This Offender</h2>
-
-<div class="row">
-	<div class="col-md-10">
-		@Html.Partial("_OffenderSummary")
-	</div>
-	<div class="col-md-2">
-		@Html.ActionLink("Edit Offender", "Edit", new { id = Model.Id }) |
-		@Html.ActionLink("Back to Search", "Index")
-		<hr />
-	</div>
-</div>
-<div class="row">
-	<div class="col-md-2">
-	@Html.ActionLink("Add a Case", "AddCase", new { offenderId = Model.Id }, new { @class = "btn btn-info" }) |
-	</div>
-	<div class="col-md-offset-6 col-md-4">
-		<button class="btn btn-success" onclick="SaveVerdictChanges()">Save All Verdict Changes</button>
-	</div>
-</div>
-
-@* *** Loop Through all of the Cases for this Offender (used For instead of Foreach due to dropdown probs) *** *@
-@for (var c = 0; c < Model.Cases.Count; c++)
-{
+<div class="case-fix-top">
+<h3>@Model.Full_Name</h3>
 	<div class="row">
-		<hr />
-		<div class="col-md-3">
-			<div class="panel group-heading"> Case Information </div>
-
-			<dl class="dl-horizontal">
-				<dt>
-					@Html.DisplayNameFor(model => Model.Cases[c].CaseNumber)
-				</dt>
-
-				<dd>
-					@Html.DisplayFor(model => Model.Cases[c].CaseNumber)
-				</dd>
-
-				<dt>
-					@Html.DisplayNameFor(model => Model.Cases[c].CaseDate)
-				</dt>
-
-				<dd>
-					@Html.DisplayFor(model => Model.Cases[c].CaseDate)
-				</dd>
-
-				<dt>
-					@Html.DisplayNameFor(model => Model.Cases[c].CaseCity)
-				</dt>
-
-				<dd>
-					@Html.DisplayFor(model => Model.Cases[c].CaseCity)
-				</dd>
-
-				<dt>
-					@Html.DisplayNameFor(model => Model.Cases[c].CaseCounty)
-				</dt>
-
-				<dd>
-					@Html.DisplayFor(model => Model.Cases[c].CaseCounty)
-				</dd>
-			</dl>
+		<div class="col-md-8">
+			@Html.Partial("_OffenderSummary")
 		</div>
 		<div class="col-md-4">
-			<div class="panel group-heading"> OFFENDER INFORMATION - WHEN CITED </div>
-			<dl class="dl-horizontal">
-				<dt>
-					@Html.DisplayNameFor(model => Model.Cases[c].BusinessName)
-				</dt>
-
-				<dd>
-					@Html.DisplayFor(model => Model.Cases[c].BusinessName)
-				</dd>
-				<dt>
-					@Html.DisplayNameFor(model => Model.Cases[c].OffenderAddress.Address)
-				</dt>
-
-				<dd>
-					@Html.DisplayFor(model => Model.Cases[c].OffenderAddress.Address)
-
-				</dd>
-				<dt>
-
-				</dt>
-
-				<dd>
-					@Model.Cases[c].OffenderAddress.CityStateZip
-				</dd>
-			</dl>
-		</div>
-		<div class="col-md-4">
-			<div class="panel group-heading"> OFFICIAL CONTACT </div>
-			<dl class="dl-horizontal">
-				<dd>
-					@Html.DisplayFor(model => Model.Cases[c].OfficialContact.FirstName) @Html.DisplayFor(model => Model.Cases[c].OfficialContact.LastName)
-				</dd>
-
-				<dd>
-					@Html.DisplayFor(model => Model.Cases[c].OfficialContact.Title)
-
-				</dd>
-
-				<dd>
-					@Model.Cases[c].OfficialContact.Email
-				</dd>
-				<dd>
-					@Model.Cases[c].OfficialContact.PhoneNumber
-				</dd>
-			</dl>
-		</div>
-		<div class="col-md-1 center-block">
-			<p>
-						@Html.ActionLink("Edit Case", "CaseCitationDetail", new { caseId = Model.Cases[c].Id }, new { @class = "btn btn-info" })
-			</p>
+			<div class="row">
+				@Html.ActionLink("Edit Offender", "EditOffender", new { id = Model.Id }, new { @class = "btn btn-info" }) |
+				@Html.ActionLink("Add New Case", "AddCase", new { offenderId = Model.Id }, new { @class = "btn btn-info" }) |
+				@Html.ActionLink("Back to Search", "Index", null, new { @class = "btn btn-default" })
+			</div>
+			<div class="row">
+			</div>
 		</div>
 	</div>
+	<hr />
 
-	<div>
-		@*  Loop Through all of the Citation for this Offender Cases  (used For instead of Foreach due to dropdown probs)  *@
-		@foreach (var citation in Model.Cases[c].Citations)
-		{
+	<div class="row">
+		<div class="col-md-2">
+		</div>
+		<div class="col-md-offset-6 col-md-4">
+			<button class="btn btn-success" onclick="SaveVerdictChanges()">Save All Verdict Changes</button>
+		</div>
+	</div>
+</div>
+<div class="case-scroll-part">
+	@* *** Loop Through all of the Cases for this Offender (used For instead of Foreach due to dropdown probs) *** *@
+	@for (var c = 0; c < Model.Cases.Count; c++)
+	{
+		<div class="row">
+			<div class="case-panel">
+				<div class="col-md-12">
+					<p>
+						@Html.ActionLink("Edit Case", "CaseCitationDetail", new { caseId = Model.Cases[c].Id }, new { @class = "btn btn-primary" })
+					</p>
+				</div>
+				<div class="row">
+					<div class="col-md-3">
+						<div class="panel group-heading"> Case Information </div>
+
+						<dl class="dl-horizontal dl-caseinfo">
+							<dt>
+								@Html.DisplayNameFor(model => Model.Cases[c].CaseNumber)
+							</dt>
+
+							<dd>
+								@Html.DisplayFor(model => Model.Cases[c].CaseNumber)
+							</dd>
+
+							<dt>
+								@Html.DisplayNameFor(model => Model.Cases[c].CaseDate)
+							</dt>
+
+							<dd>
+								@Html.DisplayFor(model => Model.Cases[c].CaseDate)
+							</dd>
+
+							<dt>
+								@Html.DisplayNameFor(model => Model.Cases[c].CaseCity)
+							</dt>
+
+							<dd>
+								@Html.DisplayFor(model => Model.Cases[c].CaseCity)
+							</dd>
+
+							<dt>
+								@Html.DisplayNameFor(model => Model.Cases[c].CaseCounty)
+							</dt>
+
+							<dd>
+								@Html.DisplayFor(model => Model.Cases[c].CaseCounty)
+							</dd>
+						</dl>
+					</div>
+					<div class="col-md-4">
+						<div class="panel group-heading"> OFFENDER INFO - WHEN CITED </div>
+						<dl class="dl-horizontal">
+							<dt>
+								@Html.DisplayNameFor(model => Model.Cases[c].BusinessName)
+							</dt>
+
+							<dd>
+								@Html.DisplayFor(model => Model.Cases[c].BusinessName)
+							</dd>
+							<dt>
+								@Html.DisplayNameFor(model => Model.Cases[c].OffenderAddress.Address)
+							</dt>
+
+							<dd>
+								@Html.DisplayFor(model => Model.Cases[c].OffenderAddress.Address)
+
+							</dd>
+							<dt>
+
+							</dt>
+
+							<dd>
+								@Model.Cases[c].OffenderAddress.CityStateZip
+							</dd>
+						</dl>
+					</div>
+					<div class="col-md-4  contact-info-box">
+						<div class="panel group-heading"> OFFICIAL CONTACT </div>
+						<div class="row">
+							@Html.DisplayFor(model => Model.Cases[c].OfficialContact.FirstName)
+
+							@Html.DisplayFor(model => Model.Cases[c].OfficialContact.LastName)
+						</div>
+						<div class="row">
+							@Html.DisplayFor(model => Model.Cases[c].OfficialContact.Title)
+						</div>
+						<div class="row">
+							@Model.Cases[c].OfficialContact.Email
+						</div>
+						<div class="row">
+							@Model.Cases[c].OfficialContact.PhoneNumber
+						</div>
+					</div>
+				</div>
+
+				@*  Loop Through all of the Citation for this Offender Cases  (used For instead of Foreach due to dropdown probs)  *@
+				@foreach (var citation in Model.Cases[c].Citations)
+				{
 			@Html.Partial("_CitationBox", citation)
 				}
-	</div>
-}
+			</div>
+		</div>
 
+	}
+
+</div>
 @section scripts{
-<script>
+	<script>
 
-        var buildJson = () => {
+		var buildJson = () => {
 
-            /*
-                idea: grab ever parent, and from that parent, "convert the html into a json object"
-            */
+			/*
+				Save the verdict dropdown/checkbox/amounts for each citation. Grab every citation-box (class), and use the html to "convert"
+				the values entered into a json object"
+			*/
 
-            var rv = [];
-            var citationBoxes = $(".citation-box");
+			var rv = [];
+			var citationBoxes = $(".citation-box");
 
-            if (citationBoxes) {
-                for (var i = 0; i < citationBoxes.length; i++) {
+			if (citationBoxes) {
+				for (var i = 0; i < citationBoxes.length; i++) {
 
-                    var citationBox = $(citationBoxes[i]);
+					var citationBox = $(citationBoxes[i]);
 
-                    rv.push({
-                    	CiteId: citationBox.find("input.citation-id").val(),
-                    	Action : citationBox.find("select.cite-action").val(),
-                    	Ruling: citationBox.find("select.cite-ruling").val(),
-                    	Withheld: citationBox.find("input.cite-withheld").val(),
-                    	Probation: citationBox.find("input.cite-probation").val(),
-                		Revoked: citationBox.find("input.cite-revoked").val(),
-                		Fine: citationBox.find("input.cite-fine").val(),
+					rv.push({
+						CiteId: citationBox.find("input.citation-id").val(),
+						Action: citationBox.find("select.cite-action").val(),
+						Ruling: citationBox.find("select.cite-ruling").val(),
+						Withheld: citationBox.find("input.cite-withheld").val(),
+						Probation: citationBox.find("input.cite-probation").val(),
+						Revoked: citationBox.find("input.cite-revoked").val(),
+						Fine: citationBox.find("input.cite-fine").val(),
 						Restitution: citationBox.find("input.cite-restitution").val()
-                    });
-                }
-            }
+					});
+				}
+			}
 
-            return rv;
-        };
+			return rv;
+		};
 
-        var SaveVerdictChanges = () => {
+		var SaveVerdictChanges = () => {
 
-            var data = buildJson()
+			var data = buildJson()
 
-            $.ajax({
+			$.ajax({
 
-            	url: "/home/SaveVerdictChanges",
-                data: JSON.stringify(data),
-                complete: (data) => { console.log(data); },
-                contentType: "application/json",
-                method: "POST"
-            })
-        };
-</script>
+				url: "/home/SaveVerdictChanges",
+				data: JSON.stringify(data),
+				complete: (data) => { console.log(data); },
+				contentType: "application/json",
+				method: "POST"
+			})
+		};
+	</script>
 }

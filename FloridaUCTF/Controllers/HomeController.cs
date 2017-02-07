@@ -68,7 +68,7 @@ namespace FloridaUCTF.Controllers
 				searchQuery = searchQuery.Where(o => o.DriveLicense.StartsWith(searchRequest.DriveLicense));
 			}
 
-			searchRequest.Results = searchQuery.Select(s => new SearchResultsViewModel { Id = s.Id, LastName = s.LastName,  FirstName = s.FirstName, FirstAKA = s.FirstAKA, LastAKA = s.LastAKA, DriveLicense = s.DriveLicense}).ToList();
+			searchRequest.Results = searchQuery.Select(s => new SearchResultsViewModel { Id = s.Id, LastName = s.LastName,  FirstName = s.FirstName, FirstAKA = s.FirstAKA, LastAKA = s.LastAKA, DriveLicense = s.DriveLicense}).OrderBy(s => s.LastName).ThenBy(s => s.FirstName).ToList();
 			return View(searchRequest);
 		}
 
