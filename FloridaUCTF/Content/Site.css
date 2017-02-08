@@ -2,6 +2,8 @@
 	padding-top: 50px;
 	padding-bottom: 20px;
 		font-size: 16px;
+	   height:2000px;   /*added to try and fix top of offender details page*/
+    overflow:scroll;    /*added to try and fix top of offender details page*/
 
 }
 
@@ -41,13 +43,22 @@ textarea {
 .dl-caseinfo dd{
 	margin-left : 85px;
 }
-/*.case-fix-top {
-	height: 142px;
-	top : 50px;
-	right : 0;
-	position : fixed;
+
+.light-blue-background {
+	background-color : #D7E9FF;
+
 }
-.case-scroll-part {
+.case-fix-top{
+	padding:1em;
+} 
+.affix {
+	padding:1em;
+	width : 95%;
+	top : 50px;
+	position : fixed;
+	z-index : 10000;
+}
+/*.case-scroll-part {
 	top: 192px;
 }*/
 

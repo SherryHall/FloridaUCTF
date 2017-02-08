@@ -224,6 +224,7 @@ namespace FloridaUCTF.Controllers
 		[HttpPost]
 		[ValidateAntiForgeryToken]
 		public ActionResult _EditCitation([Bind(Include = "Id,CitationNumber,StatuteOrdinance,Description,Withheld,Probation,PrivilegeRevoked,FineAmount,RestitutionAmount,CaseId,ActionId,RulingId,CreateDate,CreatorId,Creator,ChangeDate,LastChangerId,Changer")] Citation citation)
+		//public ActionResult _EditCitation(Citation citation)
 		{
 			if (ModelState.IsValid)
 			{
