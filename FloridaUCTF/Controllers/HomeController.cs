@@ -23,13 +23,17 @@ namespace FloridaUCTF.Controllers
 		[HttpPost]
 		public ActionResult Index (SearchViewModel searchRequest)
 		{
-			var caseParameters = (searchRequest.BusinessName + searchRequest.CaseCity + searchRequest.CaseCounty);
+			var caseParameters = (searchRequest.BusinessName + searchRequest.CaseCity + searchRequest.CaseCounty + searchRequest.CaseNumber);
 			var caseList = new List<int>();
 
 			if (!string.IsNullOrEmpty(caseParameters))
 			{
 
-				var caseQuery = db.Cases.Select(s => new { s.OffenderId, s.BusinessName, s.CaseCity, s.CaseCounty });
+				var caseQuery = db.Cases.Select(s => new { s.OffenderId, s.CaseNumber, s.BusinessName, s.CaseCity, s.CaseCounty });
+				if (!string.IsNullOrEmpty(searchRequest.CaseNumber))
+				{
+					caseQuery = caseQuery.Where(c => c.CaseNumber.StartsWith(searchRequest.CaseNumber));
+				}
 				if (!string.IsNullOrEmpty(searchRequest.BusinessName))
 				{
 					caseQuery = caseQuery.Where(c => c.BusinessName.StartsWith(searchRequest.BusinessName));
@@ -61,7 +65,11 @@ namespace FloridaUCTF.Controllers
 			}
 			if (!string.IsNullOrEmpty(searchRequest.AKA))
 			{
-				searchQuery = searchQuery.Where(o => o.LastAKA.StartsWith(searchRequest.AKA));
+				searchQuery = searchQuery.Where(o => o.LastAKA.StartsWith(searchRequest.AKA) || o.FirstAKA.StartsWith(searchRequest.AKA));
+			}
+			if (!string.IsNullOrEmpty(searchRequest.AKA))
+			{
+				searchQuery = searchQuery.Where(o => o.FirstAKA.StartsWith(searchRequest.AKA));
 			}
 			if (!string.IsNullOrEmpty(searchRequest.DriveLicense))
 			{
@@ -124,6 +132,21 @@ namespace FloridaUCTF.Controllers
 		}
 
 		[HttpGet]
+		public ActionResult EditOffender(int offenderId)
+		{
+			var currOffender = db.Offenders.Find(offenderId);
+			return View(currOffender);
+		}
+
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public ActionResult EditOffender(Offender currOffender)
+		{
+			db.Entry(currOffender).State = EntityState.Modified;
+			db.SaveChanges();
+			return RedirectToAction("AllOffenderDetail", new { offenderId = currOffender.Id });
+		}
+		[HttpGet]
 		public ActionResult AddCase(int offenderId)
 		{
 			var currentOffender = db.Offenders.Find(offenderId);
@@ -155,6 +178,7 @@ namespace FloridaUCTF.Controllers
 		[ValidateAntiForgeryToken]
 		public ActionResult EditCase(Case currCase)
 		{
+			db.Entry(currCase).State = EntityState.Modified;
 			db.SaveChanges();
 			return RedirectToAction("CaseCitationDetail", new { caseId = currCase.Id });
 		}
@@ -223,12 +247,16 @@ namespace FloridaUCTF.Controllers
 
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public ActionResult _EditCitation([Bind(Include = "Id,CitationNumber,StatuteOrdinance,Description,Withheld,Probation,PrivilegeRevoked,FineAmount,RestitutionAmount,CaseId,ActionId,RulingId,CreateDate,CreatorId,Creator,ChangeDate,LastChangerId,Changer")] Citation citation)
-		//public ActionResult _EditCitation(Citation citation)
+		//public ActionResult _EditCitation([Bind(Include = "Id,CitationNumber,StatuteOrdinance,Description,Withheld,Probation,PrivilegeRevoked,FineAmount,RestitutionAmount,CaseId,ActionId,RulingId,CreateDate,CreatorId,Creator,ChangeDate,LastChangerId,Changer")] Citation citation)
+		public ActionResult _EditCitation([Bind(Include = "Id,CitationNumber,StatuteOrdinance,Description")] Citation citation)
+
 		{
 			if (ModelState.IsValid)
 			{
-				db.Entry(citation).State = EntityState.Modified;
+				var origCitation = db.Citations.Find(citation.Id);
+				origCitation.CitationNumber = citation.CitationNumber;
+				origCitation.StatuteOrdinance = citation.StatuteOrdinance;
+				origCitation.Description = citation.Description;
 				db.SaveChanges();
 				return RedirectToAction("CaseCitationDetail", new { caseId = citation.CaseId });
 			}
