@@ -178,7 +178,12 @@ namespace FloridaUCTF.Controllers
 		[ValidateAntiForgeryToken]
 		public ActionResult EditCase(Case currCase)
 		{
-			db.Entry(currCase).State = EntityState.Modified;
+			var origCase = db.Cases.Find(currCase.Id);
+			origCase.CaseNumber = currCase.CaseNumber;
+			origCase.CaseDate = currCase.CaseDate;
+			origCase.CaseCity = currCase.CaseCity;
+			origCase.CaseCounty = currCase.CaseCounty;
+			origCase.BusinessName = currCase.BusinessName;
 			db.SaveChanges();
 			return RedirectToAction("CaseCitationDetail", new { caseId = currCase.Id });
 		}
@@ -258,7 +263,7 @@ namespace FloridaUCTF.Controllers
 				origCitation.StatuteOrdinance = citation.StatuteOrdinance;
 				origCitation.Description = citation.Description;
 				db.SaveChanges();
-				return RedirectToAction("CaseCitationDetail", new { caseId = citation.CaseId });
+				return RedirectToAction("CaseCitationDetail", new { caseId = origCitation.CaseId });
 			}
 
 			return PartialView(citation);

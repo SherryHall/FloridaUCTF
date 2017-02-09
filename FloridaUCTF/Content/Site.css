@@ -53,7 +53,7 @@ textarea {
 } 
 .affix {
 	padding:1em;
-	width : 95%;
+	width : 92%;
 	top : 50px;
 	position : fixed;
 	z-index : 10000;
